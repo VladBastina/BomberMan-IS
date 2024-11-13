@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-void PlayerListener::OnPlayerMoved()
+void PlayerListener::OnPlayerMoved(int x, int y)
 {
 	std::cout << "You moved the player." << std::endl;
 }
 
-void PlayerListener::OnPlayerPlacedBomb()
+void PlayerListener::OnPlayerPlacedBomb(int x, int y)
 {
 	std::cout << "You placed a bomb." << std::endl;
 }

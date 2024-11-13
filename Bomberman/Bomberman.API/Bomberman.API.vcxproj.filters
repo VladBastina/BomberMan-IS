@@ -27,9 +27,15 @@
     <ClInclude Include="IPlayerListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerListener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerListener.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

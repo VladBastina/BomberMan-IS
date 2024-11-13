@@ -49,8 +49,6 @@ private:
     /*void notifyPlayerMoved();
     void notifyPlayerPlacedBomb();
     void notifyPlayerDestroyed();*/
-
-    std::vector<IPlayerListener*> listeners;
 };
 
 #endif // PLAYER_H
