@@ -3,6 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+
 # User-specific files
 *.rsuser
 *.suo
@@ -452,3 +453,12 @@ compile_commands.json
 *creator.user*
 
 *_qmlcache.qrc
+
+
+
+#-------------------- Costum Here --------------------
+
+!Bomberman/sfml_libs/
+!Bomberman/sfml_libs/*.dll
+
+#-----------------------------------------------------
