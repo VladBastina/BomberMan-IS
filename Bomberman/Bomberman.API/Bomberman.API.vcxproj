@@ -128,14 +128,18 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="EPlayerType.h" />
+    <ClInclude Include="IMap.h" />
     <ClInclude Include="IPlayer.h" />
     <ClInclude Include="IPlayerListener.h" />
+    <ClInclude Include="ISquare.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerListener.h" />
+    <ClInclude Include="Square.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerListener.cpp" />
+    <ClCompile Include="Square.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
