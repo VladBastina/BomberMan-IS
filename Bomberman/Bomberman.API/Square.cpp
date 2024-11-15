@@ -1,18 +1,33 @@
 #include "Square.h"
 
+Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType, std::string imagePath)
+{
+    this->position = pos;
+    this->player = player;
+    this->squareType = squareType;
+    this->imagePath = imagePath;
+}
+
 std::pair<int, int> Square::GetPosition()
 {
-    return std::pair<int, int>();
+    return position;
 }
 
 bool Square::HasPlayer()
 {
-    return false;
+    if (player)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 ESquareType Square::HasWall()
 {
-    return ESquareType();
+    return squareType;
 }
 
 bool Square::HasPowerUp()
@@ -27,6 +42,7 @@ IPlayer* Square::GetPlayer()
 
 void Square::SetPlayer(IPlayer* player)
 {
+    this->player = player;
 }
 
 bool Square::BreakWall()
@@ -36,4 +52,9 @@ bool Square::BreakWall()
 
 void Square::DropPowerUp()
 {
+}
+
+std::string Square::GetImagePath()
+{
+    return imagePath;
 }

@@ -19,6 +19,7 @@ public:
 	virtual ESquareType HasWall() = 0;
 	virtual bool HasPowerUp() = 0;
 	virtual IPlayer* GetPlayer() = 0;
+	virtual std::string GetImagePath() = 0;
 	//virtual IPowerUp GetPowerUp() = 0;
 
 	virtual void SetPlayer(IPlayer* player) = 0;
