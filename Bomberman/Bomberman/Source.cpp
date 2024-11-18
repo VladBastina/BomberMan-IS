@@ -3,7 +3,7 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-    sf::RenderWindow window(sf::VideoMode(800, 800), "Bomboclat");
+    sf::RenderWindow window(sf::VideoMode(800, 800), "Bomberman");
     sf::Event e;
 
     while (window.isOpen())
