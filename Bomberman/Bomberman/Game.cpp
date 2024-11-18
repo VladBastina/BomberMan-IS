@@ -37,7 +37,7 @@ void Game::pollEvents()
 			this->window->close();
 			break;
 		case sf::Event::KeyPressed:
-			if (this->ev.KeyPressed == sf::Keyboard::Escape)
+			if (this->ev.key.code == sf::Keyboard::Escape)
 				this->window->close();
 			break;
 		}

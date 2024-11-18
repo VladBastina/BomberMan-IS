@@ -2,13 +2,14 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-    Game game;
+    Game* game = new Game();
 
-    while (game.running())
+    while (game->running())
     {
-        game.update();
-        game.render();
+        game->update();
+        game->render();
     }
 
+    delete game;
     return 0;
 }
