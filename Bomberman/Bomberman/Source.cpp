@@ -1,18 +1,13 @@
-#include <SFML/Graphics.hpp>
-#include <windows.h>
+#include "Game.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-    sf::RenderWindow window(sf::VideoMode(800, 800), "Bomberman");
-    sf::Event e;
+    Game game;
 
-    while (window.isOpen())
+    while (game.running())
     {
-        while (window.pollEvent(e))
-        {
-            if (e.type == sf::Event::Closed)
-                window.close();
-        }
+        game.update();
+        game.render();
     }
 
     return 0;
