@@ -8,16 +8,19 @@ public:
 	~Square() = default;
 
 	// Inherited via ISquare
-	std::pair<int, int> GetPosition() override;
-	bool HasPlayer() override;
-	ESquareType HasWall() override;
-	bool HasPowerUp() override;
-	IPlayer* GetPlayer() override;
+	std::pair<int, int> GetPosition() const override;
+	bool HasPlayer() const override;
+	ESquareType GetWallType() const override;
+	bool HasPowerUp() const override;
+	IPlayer* GetPlayer() const override;
+	std::string GetImagePath() const override;
+
 	void SetPlayer(IPlayer* player) override;
+	void RemovePlayer() override;
 	bool BreakWall() override;
-	std::string GetImagePath() override;
-private:
 	void DropPowerUp() override;
+
+private:
 
 	std::pair<int, int> position;
 	IPlayer* player;
