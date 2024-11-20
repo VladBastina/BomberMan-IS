@@ -32,6 +32,7 @@ public:
 	void AddPowerUp(int x, int y, ISquare* powerUp) override;
 	void RemovePowerUp(int x, int y) override;
 
-	
+	void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) override;
+
 };
 

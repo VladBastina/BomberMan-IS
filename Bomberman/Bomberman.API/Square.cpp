@@ -29,7 +29,7 @@ bool Square::HasPlayer() const
     return false;
 }
 
-ESquareType Square::GetWallType() const
+ESquareType Square::GetSquareType() const
 {
     return squareType;
 }
@@ -87,6 +87,11 @@ bool Square::ImageExist(const std::string& path)
 {
     std::ifstream file(path);
     return file.good();
+}
+
+bool Square::HasWall() const
+{
+    return squareType == ESquareType::Grass;
 }
 
 

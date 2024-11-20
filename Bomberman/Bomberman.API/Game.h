@@ -5,7 +5,6 @@
 #include "Player.h"
 #include "IGameListener.h"
 #include <vector>
-#include "Map.h"
 
 
 class Game : public IGame {
@@ -32,12 +31,15 @@ public:
     bool isOver() override;
     void SetGameOver() override;
 
+    void MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir) override;
+
     // Game-specific methods
     /*void OnDestroy() override;
     void OnPlaceBomb() override;
     void OnPlayerMove(int dx, int dy) override;*/
 
 private:
+
     // Helper to notify listeners
     /*void notifyPlayerMoved();
     void notifyPlayerPlacedBomb();

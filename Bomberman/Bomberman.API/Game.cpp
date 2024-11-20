@@ -44,6 +44,18 @@ void Game::SetGameOver()
     this->gameIsOver = true;
 }
 
+void Game::MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir)
+{
+    if (playerType == EPlayerType::One)
+    {
+        map->MovePlayer(Player1, movementDir);
+    }
+    else
+    {
+        map->MovePlayer(Player2, movementDir);
+    }
+}
+
 //// Game-specific methods
 //void Game::OnDestroy() {
 //    notifyPlayerDestroyed();

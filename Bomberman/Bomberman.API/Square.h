@@ -11,7 +11,7 @@ public:
 	// Inherited via ISquare
 	std::pair<int, int> GetPosition() const override;
 	bool HasPlayer() const override;
-	ESquareType GetWallType() const override;
+	ESquareType GetSquareType() const override;
 	bool HasPowerUp() const override;
 	IPlayer* GetPlayer() const override;
 	std::string GetImagePath() const override;
@@ -21,6 +21,8 @@ public:
 	bool BreakWall() override;
 	void DropPowerUp() override;
 
+	bool HasWall() const override;
+
 private:
 
 	bool ImageExist(const std::string& path);
@@ -29,6 +31,7 @@ private:
 	IPlayer* player;
 	ESquareType squareType;
 	std::string imagePath;
+
 	//IPowerUp powerUp;
 };
 

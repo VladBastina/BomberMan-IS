@@ -1,6 +1,6 @@
 #pragma once
 #include "IGameListener.h"
-#include "IMap.h"
+#include "Map.h"
 
 class IGame
 {
@@ -12,5 +12,6 @@ public:
 	virtual IMap* getMap() = 0;
 	virtual bool isOver() = 0;
 	virtual void SetGameOver() = 0;
+	virtual void MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir) = 0;
 };
 

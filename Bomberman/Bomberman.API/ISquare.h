@@ -17,10 +17,11 @@ public:
     // Information Querying
     virtual std::pair<int, int> GetPosition() const = 0;
     virtual bool HasPlayer() const = 0;
-    virtual ESquareType GetWallType() const = 0;
+    virtual ESquareType GetSquareType() const = 0;
     virtual bool HasPowerUp() const = 0;
     virtual IPlayer* GetPlayer() const = 0;
     virtual std::string GetImagePath() const = 0;
+    virtual bool HasWall() const = 0;
 
     // Modification
     virtual void SetPlayer(IPlayer* player) = 0;

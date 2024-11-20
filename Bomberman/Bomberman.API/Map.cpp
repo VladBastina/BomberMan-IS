@@ -96,7 +96,7 @@ ISquare* Map::GetSquare(int x, int y) const
 
 bool Map::IsDestructible(int x, int y) const
 {
-    if (board[x][y]->GetWallType() == ESquareType::UnbreakableWall)
+    if (board[x][y]->GetSquareType() == ESquareType::UnbreakableWall)
     {
         return false;
     }
@@ -105,7 +105,7 @@ bool Map::IsDestructible(int x, int y) const
 
 bool Map::IsPassable(int x, int y) const
 {
-    if (board[x][y]->GetWallType() == ESquareType::Wall || board[x][y]->GetWallType() == ESquareType::UnbreakableWall)
+    if (board[x][y]->GetSquareType() == ESquareType::Wall || board[x][y]->GetSquareType() == ESquareType::UnbreakableWall)
     {
         return false;
     }
@@ -154,6 +154,78 @@ void Map::AddPowerUp(int x, int y, ISquare* powerUp)
 
 void Map::RemovePowerUp(int x, int y)
 {
+}
+
+void Map::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
+{
+    std::pair<int, int> playerPosition = player->GetPosition();
+    switch (movementDir)
+    {
+    case EPlayerMovementType::Up:
+    {
+        if (playerPosition.first == 1)
+            break;
+        else
+        {
+            ISquare* square = GetSquare(playerPosition.first - 1, playerPosition.second);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                square->SetPlayer(player);
+                ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+        }
+        break;
+    }
+    case EPlayerMovementType::Down:
+    {
+        if (playerPosition.first == 12)
+            break;
+        else
+        {
+            ISquare* square = GetSquare(playerPosition.first + 1, playerPosition.second);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                square->SetPlayer(player);
+                ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+        }
+        break;
+    }
+    case EPlayerMovementType::Left:
+    {
+        if (playerPosition.second == 1)
+            break;
+        else
+        {
+            ISquare* square = GetSquare(playerPosition.first, playerPosition.second - 1);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                square->SetPlayer(player);
+                ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+        }
+        break;
+    }
+    case EPlayerMovementType::Right:
+    {
+        if (playerPosition.second == 12)
+            break;
+        else
+        {
+            ISquare* square = GetSquare(playerPosition.first, playerPosition.second + 1);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                square->SetPlayer(player);
+                ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+        }
+        break;
+    }
+    }
 }
 
 

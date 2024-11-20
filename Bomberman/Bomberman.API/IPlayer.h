@@ -1,12 +1,12 @@
 #pragma once
-#ifndef IPLAYER_H
-#define IPLAYER_H
-
 #include <utility>
 #include <string>
 #include <vector>
 #include "EPlayerType.h"
 #include "IPlayerListener.h"
+#include "EPlayerMovementType.h"
+
+
 
 class IPlayer {
 public:
@@ -36,5 +36,3 @@ public:
     virtual void OnPlaceBomb() = 0;
     virtual void OnPlayerMove(int dx, int dy) = 0;*/
 };
-
-#endif

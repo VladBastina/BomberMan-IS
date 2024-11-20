@@ -65,6 +65,7 @@ void Player::removePlayerListener(IPlayerListener* listener) {
     listeners.erase(std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
 }
 
+
 // Game-specific methods
 //void Player::OnDestroy() {
 //    alive = false;

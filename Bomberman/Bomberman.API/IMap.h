@@ -33,6 +33,8 @@ public:
     virtual void AddPowerUp(int x, int y, ISquare* powerUp) = 0;
     virtual void RemovePowerUp(int x, int y) = 0;
 
+    virtual void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) = 0;
+
     // Virtual destructor to ensure proper cleanup of derived classes.
     virtual ~IMap() = default;
 };

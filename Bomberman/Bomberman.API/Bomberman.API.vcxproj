@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EPlayerMovementType.h" />
     <ClInclude Include="EPlayerType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameListener.h" />
