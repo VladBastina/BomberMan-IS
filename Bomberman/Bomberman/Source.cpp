@@ -1,8 +1,8 @@
-#include "Game.h"
+#include "GameUI.h"
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd)
 {
-    Game* game = new Game();
+    GameUI* game = new GameUI();
 
     while (game->running())
     {

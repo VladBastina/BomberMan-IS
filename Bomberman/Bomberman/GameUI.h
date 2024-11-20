@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 
 
-class Game 
+class GameUI 
 {
 private:
 	sf::RenderWindow* window;
@@ -14,8 +14,8 @@ private:
 	void initWindow();
 
 public:
-	Game();
-	virtual ~Game();
+	GameUI();
+	virtual ~GameUI();
 
 	void update();
 	void pollEvents();

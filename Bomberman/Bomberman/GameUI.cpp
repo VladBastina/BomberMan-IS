@@ -1,33 +1,33 @@
-#include "Game.h"
+#include "GameUI.h"
 
-void Game::initVariables()
+void GameUI::initVariables()
 {
 	this->window = nullptr;
 }
 
-void Game::initWindow()
+void GameUI::initWindow()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(800, 800), "Bomberman");
 }
 
-Game::Game()
+GameUI::GameUI()
 {
 	this->initVariables();
 	this->initWindow();
 }
 
-Game::~Game()
+GameUI::~GameUI()
 {
 	delete this->window;
 }
 
-void Game::update()
+void GameUI::update()
 {
 	this->pollEvents();
 
 }
 
-void Game::pollEvents()
+void GameUI::pollEvents()
 {
 	while (this->window->pollEvent(this->ev))
 	{
@@ -44,24 +44,24 @@ void Game::pollEvents()
 	}
 }
 
-void Game::render()
+void GameUI::render()
 {
 	/*
 		return void:
 		- clear 
 
 
-		Renders the game objects
+		Renders the GameUI objects
 	
 	*/
 	this->window->clear(sf::Color(255, 0, 0, 0));
 
-	// Draw game objects
+	// Draw GameUI objects
 
 	this->window->display();
 }
 
-const bool Game::running() const
+const bool GameUI::running() const
 {
 	return this->window->isOpen();
 }
