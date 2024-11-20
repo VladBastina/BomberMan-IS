@@ -8,35 +8,67 @@ Map::Map(IPlayer* player1, IPlayer* player2)
 void Map::Initialize(IPlayer* player1, IPlayer* player2)
 {
     ResetMap();
-    for (int line = 0; line < 14; line++)
-    {
+
+    for (int line = 0; line < 14; line++) {
         std::vector<ISquare*> lineVector;
-        for (int col = 0; col < 14; col++)
-        {
+        for (int col = 0; col < 14; col++) {
             ISquare* square = nullptr;
-            if (line == 0 || line == 14 || col == 0 || col == 14)
-            {
-                square = new Square(std::make_pair(line,col),nullptr,ESquareType::UnbreakableWall, "../Bomberman.API/Assets/wall_unbreakable.png");
+
+            // 1. Edges: Set to UnbreakableWall
+            if (line == 0 || line == 13 || col == 0 || col == 13) {
+                square = new Square(
+                    std::make_pair(line, col),
+                    nullptr,
+                    ESquareType::UnbreakableWall,
+                    "../Bomberman.API/Assets/wall_unbreakable.png"
+                );
             }
-            else if ((line == 1 && (col == 1 || col == 2)) || (line == 13 && (col == 13 || col == 12)) || (line == 2 && col == 1) || (line == 12 && col == 13))
-            {
-                square = new Square(std::make_pair(line, col), nullptr, ESquareType::Grass, "../Bomberman.API/Assets/grass.png");
+            // 2. Grass areas
+            else if ((line == 1 && (col == 1 || col == 2)) ||
+                (line == 12 && (col == 12 || col == 11)) ||
+                (line == 2 && col == 1) ||
+                (line == 11 && col == 12)) {
+                square = new Square(
+                    std::make_pair(line, col),
+                    nullptr,
+                    ESquareType::Grass,
+                    "../Bomberman.API/Assets/grass.png"
+                );
             }
-            else if (line % 2 == 0 && col % 2 == 0)
+            // 3. Remaining cells: randwom between Grass and Wall
+            else 
             {
-                square = new Square(std::make_pair(line, col), nullptr, ESquareType::UnbreakableWall, "../Bomberman.API/Assets/wall_unbreakable.png");
+                static std::random_device rd; 
+                static std::mt19937 gen(rd());
+                static std::uniform_int_distribution<> dis(0, 1);
+
+                if (dis(gen) == 0) {
+                    square = new Square(
+                        std::make_pair(line, col),
+                        nullptr,
+                        ESquareType::Grass,
+                        "../Bomberman.API/Assets/grass.png"
+                    );
+                }
+                else {
+                    square = new Square(
+                        std::make_pair(line, col),
+                        nullptr,
+                        ESquareType::Wall,
+                        "../Bomberman.API/Assets/wall_breakable.png"
+                    );
+                }
             }
-            else
-            {
-                square = new Square(std::make_pair(line, col), nullptr, ESquareType::Wall, "../Bomberman.API/Assets/wall_breakable.png");
-            }
+
             lineVector.push_back(square);
         }
         board.push_back(lineVector);
     }
+
     board[1][1]->SetPlayer(player1);
-    board[13][13]->SetPlayer(player2);
+    board[12][12]->SetPlayer(player2);
 }
+
 
 void Map::ResetMap()
 {

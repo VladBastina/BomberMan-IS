@@ -18,7 +18,7 @@ private:
 
 public:
     // Constructor
-    Player(EPlayerType playerType, int startX, int startY, const std::string& image);
+    Player(EPlayerType playerType, int startX, int startY);
 
     // Getters
     EPlayerType GetType() const override;

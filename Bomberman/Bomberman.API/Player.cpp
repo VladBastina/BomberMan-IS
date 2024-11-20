@@ -3,8 +3,10 @@
 #include <iostream>
 
 // Constructor
-Player::Player(EPlayerType playerType, int startX, int startY, const std::string& image)
-    : type(playerType), position(startX, startY), alive(true), placedBomb(false), imagePath(image), activePowerup(false) {
+Player::Player(EPlayerType playerType, int startX, int startY)
+    : type(playerType), position(startX, startY), alive(true), placedBomb(false), activePowerup(false) 
+{
+    imagePath = type == EPlayerType::One ? "../Bomberman.API/Assets/player1.png" : "../Bomberman.API/Assets/player2.png";
 }
 
 // Getters

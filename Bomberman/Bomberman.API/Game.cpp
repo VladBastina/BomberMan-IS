@@ -3,8 +3,8 @@
 // Constructor
 Game::Game()
 {
-    this->Player1 = new Player(EPlayerType::One, 1, 1, "path/to/image");
-    this->Player2 = new Player(EPlayerType::Two, 13, 13, "path/to/image");
+    this->Player1 = new Player(EPlayerType::One, 1, 1);
+    this->Player2 = new Player(EPlayerType::Two, 13, 13);
     this->map = new Map(Player1,Player2);
 }
 
