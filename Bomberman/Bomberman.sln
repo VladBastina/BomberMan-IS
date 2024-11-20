@@ -8,6 +8,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bomberman.UnitTests", "Bomberman.UnitTests\Bomberman.UnitTests.vcxproj", "{E071CA67-21FF-4173-897F-78132E55A34E}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bomberman", "Bomberman\Bomberman.vcxproj", "{E2067254-A93A-4AA9-A831-0725B16A0E5D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6C34F0BA-D96C-49ED-9D08-5C4D32663BBB} = {6C34F0BA-D96C-49ED-9D08-5C4D32663BBB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

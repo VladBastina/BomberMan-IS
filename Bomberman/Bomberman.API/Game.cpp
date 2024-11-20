@@ -3,14 +3,15 @@
 // Constructor
 Game::Game()
 {
-    this->map = new Map();
     this->Player1 = new Player(EPlayerType::One, 1, 1, "path/to/image");
     this->Player2 = new Player(EPlayerType::Two, 13, 13, "path/to/image");
+    this->map = new Map(Player1,Player2);
 }
 
 // Destructor
 Game::~Game() {
     // Perform any necessary cleanup
+    map->ResetMap();
     delete map;
     delete Player1;
     delete Player2;

@@ -10,17 +10,21 @@ Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType,
 
 std::pair<int, int> Square::GetPosition() const
 {
-    return std::pair<int, int>();
+    return position;
 }
 
 bool Square::HasPlayer() const
 {
+    if (player != nullptr)
+    {
+        return true;
+    }
     return false;
 }
 
 ESquareType Square::GetWallType() const
 {
-    return ESquareType();
+    return squareType;
 }
 
 bool Square::HasPowerUp() const
@@ -30,29 +34,46 @@ bool Square::HasPowerUp() const
 
 IPlayer* Square::GetPlayer() const
 {
-    return nullptr;
+    return player;
 }
 
 std::string Square::GetImagePath() const
 {
-    return std::string();
+    return imagePath;
 }
 
 void Square::SetPlayer(IPlayer* player)
 {
+    this->player = player;
+    this->player->SetPosition(this->position.first,this->position.second);
 }
 
 void Square::RemovePlayer()
 {
+    player = nullptr;
 }
 
 bool Square::BreakWall()
 {
-    return false;
+    if (squareType == ESquareType::Wall)
+    {
+        squareType = ESquareType::Grass;
+        DropPowerUp();
+        return true;
+    }
+    else if (squareType == ESquareType::UnbreakableWall)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }
 
 void Square::DropPowerUp()
 {
+
 }
 
 

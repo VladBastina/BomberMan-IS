@@ -2,6 +2,7 @@
 #define NOMINMAX
 #include <windows.h>
 #include <SFML/Graphics.hpp>
+#include "Game.h"
 
 
 class GameUI 
@@ -9,6 +10,7 @@ class GameUI
 private:
 	sf::RenderWindow* window;
 	sf::Event ev;
+	IGame* game;
 
 	void initVariables();
 	void initWindow();

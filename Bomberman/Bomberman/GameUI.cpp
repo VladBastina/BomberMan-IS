@@ -8,6 +8,7 @@ void GameUI::initVariables()
 void GameUI::initWindow()
 {
 	this->window = new sf::RenderWindow(sf::VideoMode(800, 800), "Bomberman");
+	game = new Game();
 }
 
 GameUI::GameUI()

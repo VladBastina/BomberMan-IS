@@ -4,10 +4,10 @@
 class Map : public IMap
 {
 public:
-	Map();
+	Map(IPlayer* player1 , IPlayer* player2);
 
 	// Inherited via IMap
-	void Initialize() override;
+	void Initialize(IPlayer* player1, IPlayer* player2) override;
 	void ResetMap() override;
 	std::pair<int, int> GetMapDimensions() const override;
 
@@ -17,7 +17,6 @@ public:
 	bool HasBomb(int x, int y) const override;
 	bool HasPowerUp(int x, int y) const override;
 
-	std::vector<std::pair<int, int>> GetAllDestructibleSquares() const override;
 	std::vector<std::pair<int, int>> GetExplosionRange(int x, int y, int explosionRadius) const override;
 	bool IsValidPosition(int x, int y) const override;
 
@@ -27,8 +26,6 @@ public:
 	void AddPowerUp(int x, int y, ISquare* powerUp) override;
 	void RemovePowerUp(int x, int y) override;
 
-	void PrintMap() const override;
-	std::string ExportMapAsString() const override;
 	
 private:
 	std::vector<std::vector<ISquare*>> board;

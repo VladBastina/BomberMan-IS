@@ -1,4 +1,6 @@
 #pragma once
+#include "IGameListener.h"
+
 class IGame
 {
 public:

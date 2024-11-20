@@ -3,12 +3,12 @@
 #include <vector>
 #include <string>
 #include <utility>
-#include "ISquare.h"
+#include "Square.h"
 
 class IMap {
 public:
     // Initialization and Configuration
-    virtual void Initialize() = 0;
+    virtual void Initialize(IPlayer* player1, IPlayer* player2) = 0;
     virtual void ResetMap() = 0;
     virtual std::pair<int, int> GetMapDimensions() const = 0;
 
@@ -20,7 +20,6 @@ public:
     virtual bool HasPowerUp(int x, int y) const = 0;
 
     // Utility Functions
-    virtual std::vector<std::pair<int, int>> GetAllDestructibleSquares() const = 0;
     virtual std::vector<std::pair<int, int>> GetExplosionRange(int x, int y, int explosionRadius) const = 0;
     virtual bool IsValidPosition(int x, int y) const = 0;
 
@@ -30,10 +29,6 @@ public:
     virtual void RemoveBomb(int x, int y) = 0;
     virtual void AddPowerUp(int x, int y, ISquare* powerUp) = 0;
     virtual void RemovePowerUp(int x, int y) = 0;
-
-    // Debugging and Analysis
-    virtual void PrintMap() const = 0;
-    virtual std::string ExportMapAsString() const = 0;
 
     // Virtual destructor to ensure proper cleanup of derived classes.
     virtual ~IMap() = default;
