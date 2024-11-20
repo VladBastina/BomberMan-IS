@@ -1,9 +1,10 @@
-#ifndef PLAYER_H
-#define PLAYER_H
-
+#pragma once
 #include "IPlayer.h"
 #include <vector>
 #include <fstream>
+#include <algorithm> // for std::remove
+#include <iostream>
+
 
 class Player : public IPlayer {
 private:
@@ -55,4 +56,3 @@ private:
     void notifyPlayerDestroyed();*/
 };
 
-#endif // PLAYER_H

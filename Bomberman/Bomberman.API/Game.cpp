@@ -34,6 +34,16 @@ IMap* Game::getMap()
     return map;
 }
 
+bool Game::isOver()
+{
+    return this->gameIsOver;
+}
+
+void Game::SetGameOver()
+{
+    this->gameIsOver = true;
+}
+
 //// Game-specific methods
 //void Game::OnDestroy() {
 //    notifyPlayerDestroyed();

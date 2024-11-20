@@ -13,7 +13,6 @@ Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType,
     else {
         std::cerr << "Image does not exist: " << imagePath << std::endl;
     }
-
 }
 
 std::pair<int, int> Square::GetPosition() const

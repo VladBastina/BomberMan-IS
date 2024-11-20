@@ -13,6 +13,9 @@ private:
 	IGame* game;
 	std::map<std::string, sf::Texture> textureCache;
 
+	sf::Texture gameOverTexture; // Texture for the "Game Over" screen
+	sf::Sprite gameOverSprite;   // Sprite for the "Game Over" screen
+
 	void initVariables();
 	void initWindow();
 
@@ -20,6 +23,8 @@ public:
 	GameUI();
 	virtual ~GameUI();
 
+
+	void startNewGame();
 	void update();
 	void pollEvents();
 	void render();

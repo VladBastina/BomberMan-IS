@@ -1,10 +1,5 @@
 #include "Player.h"
-#include <algorithm> // for std::remove
-#include <iostream>
 
-
-
-// Constructor
 Player::Player(EPlayerType playerType, int startX, int startY)
     : type(playerType), position(startX, startY), alive(true), placedBomb(false), activePowerup(false) 
 {

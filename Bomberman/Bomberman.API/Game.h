@@ -1,11 +1,11 @@
 #pragma once
 
 #include "IGame.h"
-#include <vector>
-#include "IGameListener.h"
-#include "Map.h"
 #include "IMap.h"
 #include "Player.h"
+#include "IGameListener.h"
+#include <vector>
+#include "Map.h"
 
 
 class Game : public IGame {
@@ -13,6 +13,7 @@ private:
     IMap* map;
     IPlayer* Player1;
     IPlayer* Player2;
+    bool gameIsOver;
 
     // List of listeners
     std::vector<IGameListener*> listeners;
@@ -28,6 +29,8 @@ public:
 
     IMap* getMap() override;
 
+    bool isOver() override;
+    void SetGameOver() override;
 
     // Game-specific methods
     /*void OnDestroy() override;

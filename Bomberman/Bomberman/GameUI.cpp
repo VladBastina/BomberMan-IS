@@ -4,6 +4,17 @@
 void GameUI::initVariables()
 {
 	this->game = new Game();
+
+	if (!this->gameOverTexture.loadFromFile("../../Bomberman/Bomberman.API/Assets/game_over.jpg")) {
+		std::cerr << "Failed to load Game Over image!" << std::endl;
+	}
+	this->gameOverSprite.setTexture(this->gameOverTexture);
+
+	float scaleX = 800.0f / this->gameOverTexture.getSize().x;
+	float scaleY = 800.0f / this->gameOverTexture.getSize().y;
+	this->gameOverSprite.setScale(scaleX, scaleY);
+	this->gameOverSprite.setPosition(0, 0);
+
 }
 
 void GameUI::initWindow()
@@ -23,6 +34,12 @@ GameUI::~GameUI()
 	delete this->game;
 }
 
+void GameUI::startNewGame()
+{
+	delete this->game;
+	this->game = new Game();
+}
+
 void GameUI::update()
 {
 	this->pollEvents();
@@ -38,25 +55,45 @@ void GameUI::pollEvents()
 			this->window->close();
 			break;
 		case sf::Event::KeyPressed:
-			if (this->ev.key.code == sf::Keyboard::Escape)
+			if (this->ev.key.code == sf::Keyboard::Escape) {
 				this->window->close();
+			}
+			else if (this->game->isOver()) {
+				// If in Game Over mode
+				if (this->ev.key.code == sf::Keyboard::R) {
+					startNewGame(); // Restart the game
+				}
+			}
+			else {
+				// If in normal game mode
+				if (this->ev.key.code == sf::Keyboard::F || this->ev.key.code == sf::Keyboard::N) {
+					this->game->SetGameOver();
+				}
+			}
 			break;
 		}
 	}
 }
 
+
 void GameUI::render()
 {
 	this->window->clear();
 
-	const auto& board = this->game->getMap()->getBoard();
-	for (const auto& row : board) {
-		for (const auto* square : row) {
-			if (square) {
-				renderSquare(square);
+	if (!this->game->isOver()) {
+		const auto& board = this->game->getMap()->getBoard();
+		for (const auto& row : board) {
+			for (const auto* square : row) {
+				if (square) {
+					renderSquare(square);
+				}
 			}
 		}
 	}
+	else {
+		this->window->draw(this->gameOverSprite);
+	}
+
 
 	this->window->display();
 }
