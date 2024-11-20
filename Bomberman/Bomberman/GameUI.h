@@ -11,6 +11,7 @@ private:
 	sf::RenderWindow* window;
 	sf::Event ev;
 	IGame* game;
+	std::map<std::string, sf::Texture> textureCache;
 
 	void initVariables();
 	void initWindow();
@@ -22,8 +23,7 @@ public:
 	void update();
 	void pollEvents();
 	void render();
+	void renderSquare(const ISquare* square);
 	
 	const bool running() const;
-
-
 };

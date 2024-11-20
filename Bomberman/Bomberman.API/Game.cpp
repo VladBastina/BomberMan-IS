@@ -29,6 +29,11 @@ void Game::removeGameListener(IGameListener* listener) {
         std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
 }
 
+IMap* Game::getMap()
+{
+    return map;
+}
+
 //// Game-specific methods
 //void Game::OnDestroy() {
 //    notifyPlayerDestroyed();

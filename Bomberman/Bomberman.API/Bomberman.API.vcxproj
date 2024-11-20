@@ -149,6 +149,14 @@
     <ClCompile Include="PlayerListener.cpp" />
     <ClCompile Include="Square.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\game_over.jpg" />
+    <Image Include="Assets\grass.png" />
+    <Image Include="Assets\player1.png" />
+    <Image Include="Assets\player2.png" />
+    <Image Include="Assets\wall_breakable.png" />
+    <Image Include="Assets\wall_unbreakable.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

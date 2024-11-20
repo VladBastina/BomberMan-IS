@@ -16,19 +16,19 @@ void Map::Initialize(IPlayer* player1, IPlayer* player2)
             ISquare* square = nullptr;
             if (line == 0 || line == 14 || col == 0 || col == 14)
             {
-                square = new Square(std::make_pair(line,col),nullptr,ESquareType::UnbreakableWall,"path/to/image");
+                square = new Square(std::make_pair(line,col),nullptr,ESquareType::UnbreakableWall, "../Bomberman.API/Assets/wall_unbreakable.png");
             }
             else if ((line == 1 && (col == 1 || col == 2)) || (line == 13 && (col == 13 || col == 12)) || (line == 2 && col == 1) || (line == 12 && col == 13))
             {
-                square = new Square(std::make_pair(line, col), nullptr, ESquareType::Grass, "path/to/image");
+                square = new Square(std::make_pair(line, col), nullptr, ESquareType::Grass, "../Bomberman.API/Assets/grass.png");
             }
             else if (line % 2 == 0 && col % 2 == 0)
             {
-                square = new Square(std::make_pair(line, col), nullptr, ESquareType::UnbreakableWall, "path/to/image");
+                square = new Square(std::make_pair(line, col), nullptr, ESquareType::UnbreakableWall, "../Bomberman.API/Assets/wall_unbreakable.png");
             }
             else
             {
-                square = new Square(std::make_pair(line, col), nullptr, ESquareType::Wall, "path/to/image");
+                square = new Square(std::make_pair(line, col), nullptr, ESquareType::Wall, "../Bomberman.API/Assets/wall_breakable.png");
             }
             lineVector.push_back(square);
         }
@@ -50,6 +50,11 @@ void Map::ResetMap()
 std::pair<int, int> Map::GetMapDimensions() const
 {
     return std::make_pair(board.size(), board[0].size());
+}
+
+std::vector<std::vector<ISquare*>> Map::getBoard() const
+{
+    return board;
 }
 
 ISquare* Map::GetSquare(int x, int y) const

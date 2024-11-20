@@ -4,6 +4,7 @@
 #include <vector>
 #include "IGameListener.h"
 #include "Map.h"
+#include "IMap.h"
 #include "Player.h"
 
 
@@ -24,6 +25,9 @@ public:
     // Listener management
     void addGameListener(IGameListener* listener) override;
     void removeGameListener(IGameListener* listener) override;
+
+    IMap* getMap() override;
+
 
     // Game-specific methods
     /*void OnDestroy() override;

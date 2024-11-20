@@ -75,4 +75,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\game_over.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\grass.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\player1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\player2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\wall_breakable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Assets\wall_unbreakable.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

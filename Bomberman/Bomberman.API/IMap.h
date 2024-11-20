@@ -6,11 +6,14 @@
 #include "Square.h"
 
 class IMap {
+
+
 public:
     // Initialization and Configuration
     virtual void Initialize(IPlayer* player1, IPlayer* player2) = 0;
     virtual void ResetMap() = 0;
     virtual std::pair<int, int> GetMapDimensions() const = 0;
+    virtual std::vector<std::vector<ISquare*>> getBoard() const = 0;
 
     // State Querying
     virtual ISquare* GetSquare(int x, int y) const = 0;

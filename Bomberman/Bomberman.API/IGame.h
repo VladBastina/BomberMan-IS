@@ -1,5 +1,7 @@
 #pragma once
 #include "IGameListener.h"
+#include "IMap.h"
+
 
 class IGame
 {
@@ -8,5 +10,8 @@ public:
 
 	virtual void addGameListener(IGameListener* listener) = 0;
 	virtual void removeGameListener(IGameListener* listener) = 0;
+	virtual IMap* getMap() = 0;
+
+
 };
 

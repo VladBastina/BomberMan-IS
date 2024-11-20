@@ -3,6 +3,10 @@
 
 class Map : public IMap
 {
+private:
+	std::vector<std::vector<ISquare*>> board;
+
+
 public:
 	Map(IPlayer* player1 , IPlayer* player2);
 
@@ -10,6 +14,7 @@ public:
 	void Initialize(IPlayer* player1, IPlayer* player2) override;
 	void ResetMap() override;
 	std::pair<int, int> GetMapDimensions() const override;
+	std::vector<std::vector<ISquare*>> getBoard() const override;
 
 	ISquare* GetSquare(int x, int y) const override;
 	bool IsDestructible(int x, int y) const override;
@@ -27,7 +32,5 @@ public:
 	void RemovePowerUp(int x, int y) override;
 
 	
-private:
-	std::vector<std::vector<ISquare*>> board;
 };
 
