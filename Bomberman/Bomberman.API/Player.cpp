@@ -2,11 +2,16 @@
 #include <algorithm> // for std::remove
 #include <iostream>
 
+
+
 // Constructor
 Player::Player(EPlayerType playerType, int startX, int startY)
     : type(playerType), position(startX, startY), alive(true), placedBomb(false), activePowerup(false) 
 {
     imagePath = type == EPlayerType::One ? "../Bomberman.API/Assets/player1.png" : "../Bomberman.API/Assets/player2.png";
+    if (!ImageExist(imagePath)) {
+        std::cerr << "Image does not exist: " << imagePath << std::endl;
+    }
 }
 
 // Getters
@@ -104,3 +109,8 @@ void Player::removePlayerListener(IPlayerListener* listener) {
 //        listener->OnPlayerDestroyed();
 //    }
 //}
+bool Player::ImageExist(const std::string& path)
+{
+    std::ifstream file(path);
+    return file.good();
+}

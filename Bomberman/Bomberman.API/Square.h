@@ -1,5 +1,6 @@
 #pragma once
 #include "ISquare.h"
+#include <fstream>
 
 class Square : public ISquare
 {
@@ -21,6 +22,8 @@ public:
 	void DropPowerUp() override;
 
 private:
+
+	bool ImageExist(const std::string& path);
 
 	std::pair<int, int> position;
 	IPlayer* player;

@@ -3,6 +3,7 @@
 
 #include "IPlayer.h"
 #include <vector>
+#include <fstream>
 
 class Player : public IPlayer {
 private:
@@ -15,6 +16,9 @@ private:
 
     // List of listeners
     std::vector<IPlayerListener*> listeners;
+
+
+    bool ImageExist(const std::string& path);
 
 public:
     // Constructor

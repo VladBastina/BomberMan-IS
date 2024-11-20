@@ -1,11 +1,19 @@
 #include "Square.h"
+#include <iostream>
 
 Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType, std::string imagePath)
 {
     this->position = pos;
     this->player = player;
     this->squareType = squareType;
-    this->imagePath = imagePath;
+
+    if (ImageExist(imagePath)) {
+        this->imagePath = imagePath;
+    }
+    else {
+        std::cerr << "Image does not exist: " << imagePath << std::endl;
+    }
+
 }
 
 std::pair<int, int> Square::GetPosition() const
@@ -74,6 +82,12 @@ bool Square::BreakWall()
 void Square::DropPowerUp()
 {
 
+}
+
+bool Square::ImageExist(const std::string& path)
+{
+    std::ifstream file(path);
+    return file.good();
 }
 
 
