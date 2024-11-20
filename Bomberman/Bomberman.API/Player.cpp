@@ -7,6 +7,8 @@ Player::Player(EPlayerType playerType, int startX, int startY)
     if (!ImageExist(imagePath)) {
         std::cerr << "Image does not exist: " << imagePath << std::endl;
     }
+    lastMoveTime = std::chrono::steady_clock::now();
+    moveDelay = 0.4f;
 }
 
 // Getters
@@ -34,6 +36,11 @@ bool Player::HasActivePowerup() const {
     return activePowerup;
 }
 
+std::chrono::steady_clock::time_point Player::GetLastMoveTime() const
+{
+    return lastMoveTime;
+}
+
 // Setters
 void Player::SetPosition(int x, int y) {
     position = std::make_pair(x, y);
@@ -54,6 +61,18 @@ void Player::SetImagePath(const std::string& path) {
 
 void Player::SetActivePowerup(bool active) {
     activePowerup = active;
+}
+
+void Player::SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime)
+{
+    lastMoveTime = newTime;
+}
+
+bool Player::CanMove()
+{
+    auto now = std::chrono::steady_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastMoveTime).count();
+    return elapsed >= (moveDelay * 1000);
 }
 
 // Listener management

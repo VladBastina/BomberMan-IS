@@ -13,5 +13,8 @@ public:
 	virtual bool isOver() = 0;
 	virtual void SetGameOver() = 0;
 	virtual void MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir) = 0;
+	virtual void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) = 0;
+	virtual IPlayer* GetPlayer1() = 0;
+	virtual IPlayer* GetPlayer2() = 0;
 };
 

@@ -3,9 +3,9 @@
 // Constructor
 Game::Game()
 {
-    this->Player1 = new Player(EPlayerType::One, 1, 1);
-    this->Player2 = new Player(EPlayerType::Two, 13, 13);
-    this->map = new Map(Player1,Player2);
+    this->player1 = new Player(EPlayerType::One, 1, 1);
+    this->player2 = new Player(EPlayerType::Two, 13, 13);
+    this->map = new Map(player1,player2);
 }
 
 // Destructor
@@ -13,8 +13,8 @@ Game::~Game() {
     // Perform any necessary cleanup
     map->ResetMap();
     delete map;
-    delete Player1;
-    delete Player2;
+    delete player1;
+    delete player2;
 }
 
 // Listener management
@@ -48,12 +48,80 @@ void Game::MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir)
 {
     if (playerType == EPlayerType::One)
     {
-        map->MovePlayer(Player1, movementDir);
+        map->MovePlayer(player1, movementDir);
     }
     else
     {
-        map->MovePlayer(Player2, movementDir);
+        map->MovePlayer(player2, movementDir);
     }
+}
+
+void Game::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
+{
+    if (!player->CanMove())
+        return;
+    std::pair<int, int> playerPosition = player->GetPosition();
+    switch (movementDir)
+    {
+        case EPlayerMovementType::Up:
+        {
+            ISquare* square = this->map->GetSquare(playerPosition.first - 1, playerPosition.second);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                player->SetLastMoveTime(std::chrono::steady_clock::now());
+                square->SetPlayer(player);
+                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+            break;
+        }
+        case EPlayerMovementType::Down:
+        {
+            ISquare* square = this->map->GetSquare(playerPosition.first + 1, playerPosition.second);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                player->SetLastMoveTime(std::chrono::steady_clock::now());
+                square->SetPlayer(player);
+                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+            break;
+        }
+        case EPlayerMovementType::Left:
+        {
+            ISquare* square = this->map->GetSquare(playerPosition.first, playerPosition.second - 1);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                player->SetLastMoveTime(std::chrono::steady_clock::now());
+                square->SetPlayer(player);
+                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+            break;
+        }
+        case EPlayerMovementType::Right:
+        {
+            ISquare* square = this->map->GetSquare(playerPosition.first, playerPosition.second + 1);
+            if (square->HasWall() && !square->HasPlayer())
+            {
+                player->SetLastMoveTime(std::chrono::steady_clock::now());
+                square->SetPlayer(player);
+                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
+                currentSquare->RemovePlayer();
+            }
+            break;
+        }
+    }
+}
+
+IPlayer* Game::GetPlayer1()
+{
+    return player1;
+}
+
+IPlayer* Game::GetPlayer2()
+{
+    return player2;
 }
 
 //// Game-specific methods

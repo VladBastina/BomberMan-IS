@@ -10,9 +10,10 @@
 class Game : public IGame {
 private:
     IMap* map;
-    IPlayer* Player1;
-    IPlayer* Player2;
+    IPlayer* player1;
+    IPlayer* player2;
     bool gameIsOver;
+    float playersMoveDelay;
 
     // List of listeners
     std::vector<IGameListener*> listeners;
@@ -32,7 +33,13 @@ public:
     void SetGameOver() override;
 
     void MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir) override;
+    void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) override;
 
+
+    IPlayer* GetPlayer1() override;
+    IPlayer* GetPlayer2() override;
+    
+    
     // Game-specific methods
     /*void OnDestroy() override;
     void OnPlaceBomb() override;

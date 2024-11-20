@@ -5,7 +5,7 @@
 #include "EPlayerType.h"
 #include "IPlayerListener.h"
 #include "EPlayerMovementType.h"
-
+#include <chrono>
 
 
 class IPlayer {
@@ -19,6 +19,7 @@ public:
     virtual bool HasPlacedBomb() const = 0;
     virtual std::string GetImagePath() const = 0;
     virtual bool HasActivePowerup() const = 0;
+    virtual std::chrono::steady_clock::time_point GetLastMoveTime() const = 0;
 
     // Setters
     virtual void SetPosition(int x, int y) = 0;
@@ -26,6 +27,8 @@ public:
     virtual void SetPlacedBomb(bool placed) = 0;
     virtual void SetImagePath(const std::string& path) = 0;
     virtual void SetActivePowerup(bool active) = 0;
+    virtual void SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime) = 0;
+    virtual bool CanMove() = 0;
 
     // Listeners
     virtual void addPlayerListener(IPlayerListener* listener) = 0;

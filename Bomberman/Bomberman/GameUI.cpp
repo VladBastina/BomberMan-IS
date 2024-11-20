@@ -71,35 +71,35 @@ void GameUI::pollEvents()
 				}
 				if (this->ev.key.code == sf::Keyboard::W)
 				{
-					this->game->MovePlayer(EPlayerType::One, EPlayerMovementType::Up);
+					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Up);
 				}
-				if (this->ev.key.code == sf::Keyboard::A)
+				else if (this->ev.key.code == sf::Keyboard::A)
 				{
-					this->game->MovePlayer(EPlayerType::One, EPlayerMovementType::Left);
+					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Left);
 				}
-				if (this->ev.key.code == sf::Keyboard::S)
+				else if (this->ev.key.code == sf::Keyboard::S)
 				{
-					this->game->MovePlayer(EPlayerType::One, EPlayerMovementType::Down);
+					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Down);
 				}
-				if (this->ev.key.code == sf::Keyboard::D)
+				else if (this->ev.key.code == sf::Keyboard::D)
 				{
-					this->game->MovePlayer(EPlayerType::One, EPlayerMovementType::Right);
+					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Right);
 				}
 				if (this->ev.key.code == sf::Keyboard::Up)
 				{
-					this->game->MovePlayer(EPlayerType::Two, EPlayerMovementType::Up);
+					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Up);
 				}
 				if (this->ev.key.code == sf::Keyboard::Left)
 				{
-					this->game->MovePlayer(EPlayerType::Two, EPlayerMovementType::Left);
+					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Left);
 				}
 				if (this->ev.key.code == sf::Keyboard::Right)
 				{
-					this->game->MovePlayer(EPlayerType::Two, EPlayerMovementType::Right);
+					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Right);
 				}
 				if (this->ev.key.code == sf::Keyboard::Down)
 				{
-					this->game->MovePlayer(EPlayerType::Two, EPlayerMovementType::Down);
+					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Down);
 				}
 			}
 			break;

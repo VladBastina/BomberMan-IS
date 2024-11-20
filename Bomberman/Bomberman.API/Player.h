@@ -2,9 +2,8 @@
 #include "IPlayer.h"
 #include <vector>
 #include <fstream>
-#include <algorithm> // for std::remove
+#include <algorithm>
 #include <iostream>
-
 
 class Player : public IPlayer {
 private:
@@ -14,6 +13,9 @@ private:
     bool placedBomb;
     std::string imagePath;
     bool activePowerup;
+
+    std::chrono::steady_clock::time_point lastMoveTime;
+    float moveDelay;
 
     // List of listeners
     std::vector<IPlayerListener*> listeners;
@@ -32,6 +34,7 @@ public:
     bool HasPlacedBomb() const override;
     std::string GetImagePath() const override;
     bool HasActivePowerup() const override;
+    std::chrono::steady_clock::time_point GetLastMoveTime() const;
 
     // Setters
     void SetPosition(int x, int y) override;
@@ -39,6 +42,8 @@ public:
     void SetPlacedBomb(bool hasPlaced) override;
     void SetImagePath(const std::string& path) override;
     void SetActivePowerup(bool active) override;
+    void SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime);
+    bool CanMove() override;
 
     // Listener management
     void addPlayerListener(IPlayerListener* listener) override;
