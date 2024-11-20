@@ -87,8 +87,28 @@ void GameUI::renderSquare(const ISquare* square)
 	int col = position.second;
 
 	sprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
-
 	this->window->draw(sprite);
+
+	IPlayer* player = square->GetPlayer();
+	if (player) {
+		std::string playerImagePath = player->GetImagePath();
+
+		if (textureCache.find(playerImagePath) == textureCache.end()) {
+			sf::Texture texture;
+			if (!texture.loadFromFile(playerImagePath)) {
+				std::cerr << "Failed to load texture: " << playerImagePath << std::endl;
+				return;
+			}
+			textureCache[playerImagePath] = std::move(texture);
+		}
+
+		sf::Sprite playerSprite(textureCache[playerImagePath]);
+
+		playerSprite.setScale(scaleX, scaleY);
+		playerSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
+
+		this->window->draw(playerSprite);
+	}
 }
 
 const bool GameUI::running() const
