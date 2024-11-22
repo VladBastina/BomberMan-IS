@@ -34,8 +34,10 @@ public:
     virtual void addPlayerListener(IPlayerListener* listener) = 0;
     virtual void removePlayerListener(IPlayerListener* listener) = 0;
 
+
     // Game-specific methods
+    //virtual void PlaceBomb() = 0;
+
     /*virtual void OnDestroy() = 0;
-    virtual void OnPlaceBomb() = 0;
     virtual void OnPlayerMove(int dx, int dy) = 0;*/
 };

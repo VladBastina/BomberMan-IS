@@ -35,11 +35,10 @@ public:
     void MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir) override;
     void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) override;
 
-
     IPlayer* GetPlayer1() override;
     IPlayer* GetPlayer2() override;
     
-    
+    void PlaceBomb(IPlayer* player) override;
     // Game-specific methods
     /*void OnDestroy() override;
     void OnPlaceBomb() override;

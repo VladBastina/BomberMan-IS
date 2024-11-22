@@ -127,10 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="EPlayerMovementType.h" />
     <ClInclude Include="EPlayerType.h" />
+    <ClInclude Include="ESquareType.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameListener.h" />
+    <ClInclude Include="IBomb.h" />
     <ClInclude Include="IGame.h" />
     <ClInclude Include="IGameListener.h" />
     <ClInclude Include="IMap.h" />
@@ -143,6 +146,7 @@
     <ClInclude Include="Square.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameListener.cpp" />
     <ClCompile Include="Map.cpp" />

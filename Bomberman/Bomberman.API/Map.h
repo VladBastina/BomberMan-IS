@@ -20,8 +20,8 @@ public:
 	ISquare* GetSquare(int x, int y) const override;
 	bool IsDestructible(int x, int y) const override;
 	bool IsPassable(int x, int y) const override;
-	bool HasBomb(int x, int y) const override;
 	bool HasPowerUp(int x, int y) const override;
+	bool HasBombOnSquare(std::pair<int, int> position) const override;
 
 	std::vector<std::pair<int, int>> GetExplosionRange(int x, int y, int explosionRadius) const override;
 	bool IsValidPosition(int x, int y) const override;

@@ -112,14 +112,14 @@ bool Map::IsPassable(int x, int y) const
     return true;
 }
 
-bool Map::HasBomb(int x, int y) const
+bool Map::HasPowerUp(int x, int y) const
 {
     return false;
 }
 
-bool Map::HasPowerUp(int x, int y) const
+bool Map::HasBombOnSquare(std::pair<int, int> position) const
 {
-    return false;
+    return this->board[position.first][position.second]->HasBomb();
 }
 
 std::vector<std::pair<int, int>> Map::GetExplosionRange(int x, int y, int explosionRadius) const
@@ -142,6 +142,10 @@ void Map::UpdateSquare(int x, int y, ISquare* newSquare)
 
 void Map::PlaceBomb(int x, int y)
 {
+    
+    IBomb* bomb = new Bomb(std::make_pair(x, y),2,3);
+    this->board[x][y]->SetBomb(bomb);
+
 }
 
 void Map::RemoveBomb(int x, int y)

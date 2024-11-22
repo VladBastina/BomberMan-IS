@@ -16,5 +16,6 @@ public:
 	virtual void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) = 0;
 	virtual IPlayer* GetPlayer1() = 0;
 	virtual IPlayer* GetPlayer2() = 0;
+	virtual void PlaceBomb(IPlayer* player) = 0;
 };
 

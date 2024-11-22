@@ -13,7 +13,6 @@ private:
     bool placedBomb;
     std::string imagePath;
     bool activePowerup;
-
     std::chrono::steady_clock::time_point lastMoveTime;
     float moveDelay;
 
@@ -49,9 +48,12 @@ public:
     void addPlayerListener(IPlayerListener* listener) override;
     void removePlayerListener(IPlayerListener* listener) override;
 
+   
     // Game-specific methods
+
+    //void PlaceBomb() override;
+
     /*void OnDestroy() override;
-    void OnPlaceBomb() override;
     void OnPlayerMove(int dx, int dy) override;*/
 
 private:

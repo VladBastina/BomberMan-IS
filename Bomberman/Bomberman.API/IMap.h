@@ -19,8 +19,8 @@ public:
     virtual ISquare* GetSquare(int x, int y) const = 0;
     virtual bool IsDestructible(int x, int y) const = 0;
     virtual bool IsPassable(int x, int y) const = 0;
-    virtual bool HasBomb(int x, int y) const = 0;
     virtual bool HasPowerUp(int x, int y) const = 0;
+    virtual bool HasBombOnSquare(std::pair<int, int> position) const = 0;
 
     // Utility Functions
     virtual std::vector<std::pair<int, int>> GetExplosionRange(int x, int y, int explosionRadius) const = 0;

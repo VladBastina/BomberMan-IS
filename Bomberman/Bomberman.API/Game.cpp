@@ -124,6 +124,18 @@ IPlayer* Game::GetPlayer2()
     return player2;
 }
 
+void Game::PlaceBomb(IPlayer* player)
+{
+    std::pair<int, int> playerPosition = player->GetPosition();
+    if (!this->map->HasBombOnSquare(playerPosition) && !player->HasPlacedBomb())
+    {
+        this->map->PlaceBomb(playerPosition.first, playerPosition.second);
+        player->SetPlacedBomb(true);
+        
+    }
+
+}
+
 //// Game-specific methods
 //void Game::OnDestroy() {
 //    notifyPlayerDestroyed();

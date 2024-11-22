@@ -14,14 +14,20 @@ public:
 	ESquareType GetSquareType() const override;
 	bool HasPowerUp() const override;
 	IPlayer* GetPlayer() const override;
+	IBomb* GetBomb() const override;
 	std::string GetImagePath() const override;
 
+
+
 	void SetPlayer(IPlayer* player) override;
+	void SetBomb(IBomb* bomb) override;
+
 	void RemovePlayer() override;
 	bool BreakWall() override;
 	void DropPowerUp() override;
 
 	bool HasWall() const override;
+	bool HasBomb() const override;
 
 private:
 
@@ -29,6 +35,7 @@ private:
 
 	std::pair<int, int> position;
 	IPlayer* player;
+	IBomb* bomb;
 	ESquareType squareType;
 	std::string imagePath;
 

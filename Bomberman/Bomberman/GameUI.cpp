@@ -66,8 +66,16 @@ void GameUI::pollEvents()
 			}
 			else {
 				// If in normal game mode
-				if (this->ev.key.code == sf::Keyboard::F || this->ev.key.code == sf::Keyboard::N) {
+				/*if (this->ev.key.code == sf::Keyboard::F || this->ev.key.code == sf::Keyboard::N) {
 					this->game->SetGameOver();
+				}*/
+				if (this->ev.key.code == sf::Keyboard::N)
+				{
+					this->game->PlaceBomb(this->game->GetPlayer2());
+				}
+				if (this->ev.key.code == sf::Keyboard::F)
+				{
+					this->game->PlaceBomb(this->game->GetPlayer1());
 				}
 				if (this->ev.key.code == sf::Keyboard::W)
 				{
@@ -177,6 +185,24 @@ void GameUI::renderSquare(const ISquare* square)
 		playerSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
 
 		this->window->draw(playerSprite);
+	}
+	IBomb* bomb = square->GetBomb();
+	if (bomb)
+	{
+		std::string bombImagePath = bomb->GetImagePath();
+		if (textureCache.find(bombImagePath) == textureCache.end()) {
+			sf::Texture texture;
+			if (!texture.loadFromFile(bombImagePath)) {
+				std::cerr << "Failed to load texture: " << bombImagePath << std::endl;
+				return;
+			}
+			textureCache[bombImagePath] = std::move(texture);
+		}
+		sf::Sprite bombSprite(textureCache[bombImagePath]);
+		bombSprite.setScale(scaleX, scaleY);
+		bombSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
+		this->window->draw(bombSprite);
+
 	}
 }
 
