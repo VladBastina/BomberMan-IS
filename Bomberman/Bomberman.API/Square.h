@@ -21,13 +21,16 @@ public:
 
 	void SetPlayer(IPlayer* player) override;
 	void SetBomb(IBomb* bomb) override;
-
+	void SetImagePath(std::string imagePath) override;
+	void SetSquareType(ESquareType squareType) override;
 	void RemovePlayer() override;
 	bool BreakWall() override;
 	void DropPowerUp() override;
+	void ClearBomb() override;
 
 	bool HasWall() const override;
 	bool HasBomb() const override;
+	bool HasBombExploded() const override;
 
 private:
 

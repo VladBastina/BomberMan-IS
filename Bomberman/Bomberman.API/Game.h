@@ -14,6 +14,7 @@ private:
     IPlayer* player2;
     bool gameIsOver;
     float playersMoveDelay;
+    std::vector<std::tuple<int,int,IPlayer*>> activeBombs;
 
     // List of listeners
     std::vector<IGameListener*> listeners;
@@ -39,6 +40,8 @@ public:
     IPlayer* GetPlayer2() override;
     
     void PlaceBomb(IPlayer* player) override;
+    void HandleExplosion(float elapsedTime) override;
+    void UpdateMap(std::pair<int,int> position,int rangeBomb);
     // Game-specific methods
     /*void OnDestroy() override;
     void OnPlaceBomb() override;

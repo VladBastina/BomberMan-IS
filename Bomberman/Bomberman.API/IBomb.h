@@ -18,5 +18,6 @@ public:
 	virtual void SetTimer(const std::chrono::steady_clock::time_point& timer) = 0;
 	virtual void SetImagePath(const std::string& imagePath) = 0;
 
-	// virtual void Explode() = 0;
+	virtual bool HasExploded() const = 0;
+	virtual void UpdateTimer(float elapsedTime) = 0;
 };

@@ -65,6 +65,16 @@ void Square::SetBomb(IBomb* bomb)
     this->bomb = bomb;
 }
 
+void Square::SetImagePath(std::string imagePath)
+{
+    this->imagePath = imagePath;
+}
+
+void Square::SetSquareType(ESquareType squareType)
+{
+    this->squareType = squareType;
+}
+
 void Square::RemovePlayer()
 {
     player = nullptr;
@@ -93,6 +103,15 @@ void Square::DropPowerUp()
 
 }
 
+void Square::ClearBomb()
+{
+    if (bomb)
+    {
+        delete bomb;
+        bomb = nullptr;
+    }
+}
+
 bool Square::ImageExist(const std::string& path)
 {
     std::ifstream file(path);
@@ -107,6 +126,11 @@ bool Square::HasWall() const
 bool Square::HasBomb() const
 {
     return bomb != nullptr;
+}
+
+bool Square::HasBombExploded() const
+{
+    return this->bomb->HasExploded();
 }
 
 

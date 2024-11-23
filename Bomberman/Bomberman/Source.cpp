@@ -4,9 +4,12 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 {
     GameUI* game = new GameUI();
 
+    sf::Clock clock;
+    float elapsedTime = 0.0f;
     while (game->running())
     {
-        game->update();
+        elapsedTime = clock.restart().asSeconds();
+        game->update(elapsedTime);
         game->render();
     }
 

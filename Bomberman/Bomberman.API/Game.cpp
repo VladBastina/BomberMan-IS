@@ -131,7 +131,79 @@ void Game::PlaceBomb(IPlayer* player)
     {
         this->map->PlaceBomb(playerPosition.first, playerPosition.second);
         player->SetPlacedBomb(true);
-        
+        activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player ));
+
+    }
+
+}
+
+void Game::HandleExplosion(float elapsedTime)
+{
+    for (auto bomb=activeBombs.begin(); bomb!=activeBombs.end();)
+    {
+        ISquare* square = map->GetSquare(std::get<0>((*bomb)), std::get<1>((*bomb)));
+        if (square && square->GetBomb())
+        {
+            square->GetBomb()->UpdateTimer(elapsedTime);
+            if (square->HasBombExploded())
+            {
+                int rangeBomb = square->GetBomb()->GetRange();
+                square->ClearBomb();
+                std::get<2>((*bomb))->SetPlacedBomb(false);
+                bomb = activeBombs.erase(bomb);
+              
+                UpdateMap(square->GetPosition(), rangeBomb);
+
+            }
+            else
+            {
+                bomb++;
+            }
+
+        }
+    }
+
+
+}
+
+void Game::UpdateMap(std::pair<int,int> position,int rangeBomb)
+{
+    std::vector<std::pair<int, int>> directions = {
+          { 0, 1}, 
+          { 0, -1}, 
+          { 1, 0}, 
+          {-1, 0}  
+    };
+    int row = position.first;
+    int col = position.second;
+    for (auto& direction : directions)
+    {
+        for (int distance = 0; distance < rangeBomb; distance++)
+        {
+            int targetRow = row + (distance+1) * direction.first;
+            int targetCol = col + (distance + 1) * direction.second;
+            if (targetRow < 0 || targetCol < 0 || targetRow >= map->GetMapDimensions().first || targetCol >= map->GetMapDimensions().second){
+                break; 
+            }
+            ISquare* targetSquare = map->GetSquare(targetRow, targetCol);
+            if (targetSquare->GetPlayer())
+            {
+                this->SetGameOver();
+            }
+            if (targetSquare->GetSquareType() != ESquareType::Grass)
+            {
+                if (targetSquare->GetSquareType() == ESquareType::Wall)
+                {
+                    targetSquare->SetSquareType(ESquareType::Grass);
+                    targetSquare->SetImagePath("../Bomberman.API/Assets/grass.png");
+
+                }
+                break;
+
+            }
+
+        }
+
     }
 
 }

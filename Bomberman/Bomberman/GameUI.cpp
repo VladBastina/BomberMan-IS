@@ -40,8 +40,9 @@ void GameUI::startNewGame()
 	this->game = new Game();
 }
 
-void GameUI::update()
+void GameUI::update(float elapsedTime)
 {
+	this->game->HandleExplosion(elapsedTime);
 	this->pollEvents();
 }
 
@@ -119,7 +120,6 @@ void GameUI::pollEvents()
 void GameUI::render()
 {
 	this->window->clear();
-
 	if (!this->game->isOver()) {
 		const auto& board = this->game->getMap()->getBoard();
 		for (const auto& row : board) {

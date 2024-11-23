@@ -1,7 +1,7 @@
 #include "Bomb.h"
 #include <thread>
 
-Bomb::Bomb(std::pair<int, int> position, int range,int explosionDelay): position(position), range(range), explosionDelay(explosionDelay)
+Bomb::Bomb(std::pair<int, int> position, int range,float timer): position(position), range(range), timer(timer)
 {
 	imagePath = "../Bomberman.API/Assets/bomb.png";
 	/*if (!ImageExist(imagePath)) {
@@ -48,6 +48,17 @@ void Bomb::SetTimer(const std::chrono::steady_clock::time_point& timer)
 void Bomb::SetImagePath(const std::string& path)
 {
 	imagePath = path;
+}
+
+bool Bomb::HasExploded() const
+{
+	return timer <= 0;
+}
+
+void Bomb::UpdateTimer(float elapsedTime)
+{
+	timer -= elapsedTime;
+
 }
 
 //void Bomb::Explode()

@@ -4,14 +4,14 @@ class Bomb : public IBomb {
 private:
 	std::pair<int, int> position;
 	std::chrono::steady_clock::time_point placedBombTime;
-	int explosionDelay;
+	float timer;
 	int range;
 	std::string imagePath;
 	//bool exploded;
 public:
 
 	//Constructor
-	Bomb(std::pair<int, int> position, int range,int explosionDelay);
+	Bomb(std::pair<int, int> position, int range,float timer);
 
 	//Getters
 
@@ -19,7 +19,6 @@ public:
 	int GetRange() const override;
 	std::chrono::steady_clock::time_point GetTimer() const override;
     std::string GetImagePath() const override;
-	void Countdown();
 
 	//Setters
 
@@ -28,6 +27,7 @@ public:
 	void SetTimer(const std::chrono::steady_clock::time_point& timer) override;
 	void SetImagePath(const std::string& path) override;
 
-	//void Explode() override;
+	bool HasExploded() const override;
+	void UpdateTimer(float elapsedTime) override;
 
 };

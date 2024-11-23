@@ -1,7 +1,7 @@
 #pragma once
 #include "IGameListener.h"
 #include "Map.h"
-
+#include <tuple>
 class IGame
 {
 public:
@@ -17,5 +17,6 @@ public:
 	virtual IPlayer* GetPlayer1() = 0;
 	virtual IPlayer* GetPlayer2() = 0;
 	virtual void PlaceBomb(IPlayer* player) = 0;
+	virtual void HandleExplosion(float elapsedTime) = 0;
 };
 

@@ -25,7 +25,7 @@ public:
 
 
 	void startNewGame();
-	void update();
+	void update(float elapsedTime);
 	void pollEvents();
 	void render();
 	void renderSquare(const ISquare* square);
