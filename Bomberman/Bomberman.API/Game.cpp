@@ -1,7 +1,7 @@
 #include "Game.h"
 
 // Constructor
-Game::Game()
+Game::Game() : gameIsOver(false)
 {
     this->player1 = new Player(EPlayerType::One, 1, 1);
     this->player2 = new Player(EPlayerType::Two, 13, 13);
@@ -18,7 +18,6 @@ Game::~Game() {
 bool Game::addGameListener(IGameListener* listener) 
 {
     listeners.push_back(listener);
-
     return true;
 }
 
@@ -46,9 +45,23 @@ bool Game::isOver()
     return this->gameIsOver;
 }
 
+IPlayer* Game::GetPlayer1()
+{
+    return player1;
+}
+
+IPlayer* Game::GetPlayer2()
+{
+    return player2;
+}
+
 void Game::SetGameOver()
 {
     this->gameIsOver = true;
+    // Notify listeners about game over (if needed)
+    for (auto* listener : listeners) {
+        listener->OnPlayerDestroyed();
+    }
 }
 
 void Game::MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir)
@@ -67,68 +80,40 @@ void Game::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
 {
     if (!player->CanMove())
         return;
-    std::pair<int, int> playerPosition = player->GetPosition();
+
+    std::pair<int, int> oldPosition = player->GetPosition();
+    std::pair<int, int> newPosition = oldPosition;
+
     switch (movementDir)
     {
-        case EPlayerMovementType::Up:
-        {
-            ISquare* square = this->map->GetSquare(playerPosition.first - 1, playerPosition.second);
-            if (square->HasWall() && !square->HasPlayer())
-            {
-                player->SetLastMoveTime(std::chrono::steady_clock::now());
-                square->SetPlayer(player);
-                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
-                currentSquare->RemovePlayer();
-            }
-            break;
-        }
-        case EPlayerMovementType::Down:
-        {
-            ISquare* square = this->map->GetSquare(playerPosition.first + 1, playerPosition.second);
-            if (square->HasWall() && !square->HasPlayer())
-            {
-                player->SetLastMoveTime(std::chrono::steady_clock::now());
-                square->SetPlayer(player);
-                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
-                currentSquare->RemovePlayer();
-            }
-            break;
-        }
-        case EPlayerMovementType::Left:
-        {
-            ISquare* square = this->map->GetSquare(playerPosition.first, playerPosition.second - 1);
-            if (square->HasWall() && !square->HasPlayer())
-            {
-                player->SetLastMoveTime(std::chrono::steady_clock::now());
-                square->SetPlayer(player);
-                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
-                currentSquare->RemovePlayer();
-            }
-            break;
-        }
-        case EPlayerMovementType::Right:
-        {
-            ISquare* square = this->map->GetSquare(playerPosition.first, playerPosition.second + 1);
-            if (square->HasWall() && !square->HasPlayer())
-            {
-                player->SetLastMoveTime(std::chrono::steady_clock::now());
-                square->SetPlayer(player);
-                ISquare* currentSquare = this->map->GetSquare(playerPosition.first, playerPosition.second);
-                currentSquare->RemovePlayer();
-            }
-            break;
+    case EPlayerMovementType::Up:
+        newPosition.first -= 1;
+        break;
+    case EPlayerMovementType::Down:
+        newPosition.first += 1;
+        break;
+    case EPlayerMovementType::Left:
+        newPosition.second -= 1;
+        break;
+    case EPlayerMovementType::Right:
+        newPosition.second += 1;
+        break;
+    }
+
+    ISquare* targetSquare = this->map->GetSquare(newPosition.first, newPosition.second);
+    if (targetSquare && targetSquare->HasWall() && !targetSquare->HasPlayer())
+    {
+        player->SetLastMoveTime(std::chrono::steady_clock::now());
+        targetSquare->SetPlayer(player);
+
+        ISquare* currentSquare = this->map->GetSquare(oldPosition.first, oldPosition.second);
+        currentSquare->RemovePlayer();
+
+        // Notify listeners about player movement
+        for (auto* listener : listeners) {
+            listener->OnPlayerMoved(newPosition.first, newPosition.second);
         }
     }
-}
-
-IPlayer* Game::GetPlayer1()
-{
-    return player1;
-}
-
-IPlayer* Game::GetPlayer2()
-{
-    return player2;
 }
 
 void Game::PlaceBomb(IPlayer* player)
@@ -140,6 +125,10 @@ void Game::PlaceBomb(IPlayer* player)
         player->SetPlacedBomb(true);
         activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player ));
 
+        // Notify listeners about bomb placement
+        for (auto* listener : listeners) {
+            listener->OnPlayerPlacedBomb(playerPosition.first, playerPosition.second);
+        }
     }
 }
 

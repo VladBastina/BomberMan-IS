@@ -1,9 +1,12 @@
 #include "GameUI.h"
+#include "ConsoleGameListener.h"
 #include <iostream>
 
 void GameUI::initVariables()
 {
 	this->game = new Game();
+	ConsoleGameListener* listener = new ConsoleGameListener();
+	game->addGameListener(listener);
 
 	if (!this->gameOverTexture.loadFromFile("../../Bomberman/Bomberman.API/Assets/game_over.jpg")) {
 		std::cerr << "Failed to load Game Over image!" << std::endl;
