@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "EPlayerType.h"
-#include "IPlayerListener.h"
 #include "EPlayerMovementType.h"
 #include <chrono>
 
@@ -29,15 +28,4 @@ public:
     virtual void SetActivePowerup(bool active) = 0;
     virtual void SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime) = 0;
     virtual bool CanMove() = 0;
-
-    // Listeners
-    virtual void addPlayerListener(IPlayerListener* listener) = 0;
-    virtual void removePlayerListener(IPlayerListener* listener) = 0;
-
-
-    // Game-specific methods
-    //virtual void PlaceBomb() = 0;
-
-    /*virtual void OnDestroy() = 0;
-    virtual void OnPlayerMove(int dx, int dy) = 0;*/
 };

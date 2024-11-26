@@ -16,17 +16,11 @@ private:
     float playersMoveDelay;
     std::vector<std::tuple<int,int,IPlayer*>> activeBombs;
 
-    // List of listeners
     std::vector<IGameListener*> listeners;
 
 public:
-    // Constructor and Destructor
     Game();
     ~Game();
-
-    // Listener management
-    void addGameListener(IGameListener* listener) override;
-    void removeGameListener(IGameListener* listener) override;
 
     IMap* getMap() override;
 
@@ -42,16 +36,8 @@ public:
     void PlaceBomb(IPlayer* player) override;
     void HandleExplosion(float elapsedTime) override;
     void UpdateMap(std::pair<int,int> position,int rangeBomb);
-    // Game-specific methods
+    
     //Codul care modifica codul din UI il trec in metodele acestea si le apelez
-    /*void OnDestroy() override;
-    void OnPlaceBomb() override;
-    void OnPlayerMove(int dx, int dy) override;*/
-
-private:
-
-    // Helper to notify listeners
-    /*void notifyPlayerMoved();
-    void notifyPlayerPlacedBomb();
-    void notifyPlayerDestroyed();*/
+    bool addGameListener(IGameListener* listener) override;
+    bool removeGameListener(IGameListener* listener) override;
 };

@@ -8,25 +8,32 @@ Game::Game()
     this->map = new Map(player1,player2);
 }
 
-// Destructor
 Game::~Game() {
-    // Perform any necessary cleanup
     map->ResetMap();
     delete map;
     delete player1;
     delete player2;
 }
 
-// Listener management
-void Game::addGameListener(IGameListener* listener) {
-    if (listener) {
-        listeners.push_back(listener);
-    }
+bool Game::addGameListener(IGameListener* listener) 
+{
+    listeners.push_back(listener);
+
+    return true;
 }
 
-void Game::removeGameListener(IGameListener* listener) {
-    listeners.erase(
-        std::remove(listeners.begin(), listeners.end(), listener), listeners.end());
+bool Game::removeGameListener(IGameListener* listener) 
+{
+    for (auto it = listeners.begin(); it != listeners.end(); ++it)
+    {
+        if (*it == listener)
+        {
+            listeners.erase(it);
+            return true;
+        }
+    }
+
+    return false;
 }
 
 IMap* Game::getMap()
@@ -134,8 +141,6 @@ void Game::PlaceBomb(IPlayer* player)
         activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player ));
 
     }
-    // for each listener, listener->onMove(...)
-
 }
 
 void Game::HandleExplosion(float elapsedTime)
@@ -208,48 +213,3 @@ void Game::UpdateMap(std::pair<int,int> position,int rangeBomb)
     }
 
 }
-
-//// Game-specific methods
-//void Game::OnDestroy() {
-//    notifyPlayerDestroyed();
-//    // Additional logic for destroying game objects
-//}
-//
-//void Game::OnPlaceBomb() {
-//    notifyPlayerPlacedBomb();
-//    // Additional logic for placing a bomb
-//}
-//
-//void Game::OnPlayerMove(int dx, int dy) {
-//    // Example: Update Player1's position
-//    if (Player1) {
-//        auto pos = Player1->GetPosition();
-//        Player1->SetPosition(pos.first + dx, pos.second + dy);
-//    }
-//    notifyPlayerMoved();
-//}
-//
-//// Helper functions to notify listeners
-//void Game::notifyPlayerMoved() {
-//    for (auto* listener : listeners) {
-//        if (listener) {
-//            listener->OnPlayerMoved();
-//        }
-//    }
-//}
-//
-//void Game::notifyPlayerPlacedBomb() {
-//    for (auto* listener : listeners) {
-//        if (listener) {
-//            listener->OnBombPlaced();
-//        }
-//    }
-//}
-//
-//void Game::notifyPlayerDestroyed() {
-//    for (auto* listener : listeners) {
-//        if (listener) {
-//            listener->OnPlayerDestroyed();
-//        }
-//    }
-//}

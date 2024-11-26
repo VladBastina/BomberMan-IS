@@ -132,13 +132,11 @@
     <ClInclude Include="EPlayerType.h" />
     <ClInclude Include="ESquareType.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="GameListener.h" />
     <ClInclude Include="IBomb.h" />
     <ClInclude Include="IGame.h" />
     <ClInclude Include="IGameListener.h" />
     <ClInclude Include="IMap.h" />
     <ClInclude Include="IPlayer.h" />
-    <ClInclude Include="IPlayerListener.h" />
     <ClInclude Include="ISquare.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Player.h" />
@@ -148,10 +146,8 @@
   <ItemGroup>
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameListener.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerListener.cpp" />
     <ClCompile Include="Square.cpp" />
   </ItemGroup>
   <ItemGroup>
