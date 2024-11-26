@@ -134,6 +134,7 @@ void Game::PlaceBomb(IPlayer* player)
         activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player ));
 
     }
+    // for each listener, listener->onMove(...)
 
 }
 

@@ -43,6 +43,7 @@ public:
     void HandleExplosion(float elapsedTime) override;
     void UpdateMap(std::pair<int,int> position,int rangeBomb);
     // Game-specific methods
+    //Codul care modifica codul din UI il trec in metodele acestea si le apelez
     /*void OnDestroy() override;
     void OnPlaceBomb() override;
     void OnPlayerMove(int dx, int dy) override;*/
