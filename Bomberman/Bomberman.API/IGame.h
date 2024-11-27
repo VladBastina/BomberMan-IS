@@ -19,5 +19,6 @@ public:
 
 	virtual bool addGameListener(IGameListener* listener) = 0;
 	virtual bool removeGameListener(IGameListener* listener) = 0;
+	virtual void notifyAllListeners() = 0;
 };
 

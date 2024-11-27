@@ -40,4 +40,7 @@ public:
     //Codul care modifica codul din UI il trec in metodele acestea si le apelez
     bool addGameListener(IGameListener* listener) override;
     bool removeGameListener(IGameListener* listener) override;
+
+    // Inherited via IGame
+    void notifyAllListeners() override;
 };

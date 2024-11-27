@@ -1,12 +1,10 @@
 #include "GameUI.h"
-#include "ConsoleGameListener.h"
 #include <iostream>
 
 void GameUI::initVariables()
 {
 	this->game = new Game();
-	ConsoleGameListener* listener = new ConsoleGameListener();
-	game->addGameListener(listener);
+	game->addGameListener(this);
 
 	if (!this->gameOverTexture.loadFromFile("../../Bomberman/Bomberman.API/Assets/game_over.jpg")) {
 		std::cerr << "Failed to load Game Over image!" << std::endl;
@@ -41,9 +39,11 @@ void GameUI::startNewGame()
 {
 	delete this->game;
 	this->game = new Game();
+	game->addGameListener(this);
+	game->notifyAllListeners();
 }
 
-void GameUI::update(float elapsedTime)
+void GameUI::OnKeyPressed(float elapsedTime)
 {
 	this->game->HandleExplosion(elapsedTime);
 	this->pollEvents();
@@ -212,4 +212,9 @@ void GameUI::renderSquare(const ISquare* square)
 const bool GameUI::running() const
 {
 	return this->window->isOpen();
+}
+
+void GameUI::OnKeyPressed()
+{
+	this->render();
 }

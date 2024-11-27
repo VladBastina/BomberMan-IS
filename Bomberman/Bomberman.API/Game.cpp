@@ -35,6 +35,13 @@ bool Game::removeGameListener(IGameListener* listener)
     return false;
 }
 
+void Game::notifyAllListeners()
+{
+    for (auto* listener : listeners) {
+        listener->OnKeyPressed();
+    }
+}
+
 IMap* Game::getMap()
 {
     return map;
@@ -58,10 +65,7 @@ IPlayer* Game::GetPlayer2()
 void Game::SetGameOver()
 {
     this->gameIsOver = true;
-    // Notify listeners about game over (if needed)
-    for (auto* listener : listeners) {
-        listener->OnPlayerDestroyed();
-    }
+    notifyAllListeners();
 }
 
 void Game::MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir)
@@ -109,10 +113,7 @@ void Game::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
         ISquare* currentSquare = this->map->GetSquare(oldPosition.first, oldPosition.second);
         currentSquare->RemovePlayer();
 
-        // Notify listeners about player movement
-        for (auto* listener : listeners) {
-            listener->OnPlayerMoved(newPosition.first, newPosition.second);
-        }
+        notifyAllListeners();
     }
 }
 
@@ -125,10 +126,7 @@ void Game::PlaceBomb(IPlayer* player)
         player->SetPlacedBomb(true);
         activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player ));
 
-        // Notify listeners about bomb placement
-        for (auto* listener : listeners) {
-            listener->OnPlayerPlacedBomb(playerPosition.first, playerPosition.second);
-        }
+        notifyAllListeners();
     }
 }
 
@@ -149,6 +147,7 @@ void Game::HandleExplosion(float elapsedTime)
               
                 UpdateMap(square->GetPosition(), rangeBomb);
 
+                notifyAllListeners();
             }
             else
             {

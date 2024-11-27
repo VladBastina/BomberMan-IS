@@ -5,7 +5,7 @@
 #include "Game.h"
 
 
-class GameUI 
+class GameUI : public IGameListener
 {
 private:
 	sf::RenderWindow* window;
@@ -25,10 +25,13 @@ public:
 
 
 	void startNewGame();
-	void update(float elapsedTime);
+	void OnKeyPressed(float elapsedTime);
 	void pollEvents();
 	void render();
 	void renderSquare(const ISquare* square);
 	
 	const bool running() const;
+
+	// Inherited via IGameListener
+	void OnKeyPressed() override;
 };

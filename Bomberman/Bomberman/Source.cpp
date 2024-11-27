@@ -6,11 +6,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
     sf::Clock clock;
     float elapsedTime = 0.0f;
+    game->render();
     while (game->running())
     {
         elapsedTime = clock.restart().asSeconds();
-        game->update(elapsedTime);
-        game->render();
+        game->OnKeyPressed(elapsedTime);
     }
 
     delete game;
