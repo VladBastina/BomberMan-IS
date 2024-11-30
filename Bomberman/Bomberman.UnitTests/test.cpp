@@ -32,3 +32,26 @@ TEST(GameTest, MovePlayer) {
 
     delete game;
 }
+
+TEST(GameTest, GameOver) {
+    IGame* game = new Game();
+    EXPECT_FALSE(game->isOver());
+    game->SetGameOver();
+    EXPECT_TRUE(game->isOver());
+}
+
+class MockGameListener : public IGameListener {
+public:
+    MOCK_METHOD(void, OnKeyPressed, (), (override));
+};
+
+TEST(GameTest, AddRemoveGameListener) {
+    Game game;
+    MockGameListener listener1, listener2;
+    EXPECT_TRUE(game.addGameListener(&listener1));
+    EXPECT_TRUE(game.addGameListener(&listener2));
+    EXPECT_TRUE(game.removeGameListener(&listener1));
+    EXPECT_FALSE(game.removeGameListener(&listener1));
+    EXPECT_TRUE(game.removeGameListener(&listener2));
+}
+
