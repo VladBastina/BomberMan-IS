@@ -55,3 +55,8 @@ TEST(GameTest, AddRemoveGameListener) {
     EXPECT_TRUE(game.removeGameListener(&listener2));
 }
 
+int main(int argc, char** argv) {
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
+
