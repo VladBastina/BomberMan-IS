@@ -162,6 +162,9 @@
     <Image Include="Assets\wall_breakable.png" />
     <Image Include="Assets\wall_unbreakable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="board.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

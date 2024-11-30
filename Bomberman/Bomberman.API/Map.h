@@ -34,5 +34,7 @@ public:
 
 	void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) override;
 
+	void LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2) override;
+
 };
 

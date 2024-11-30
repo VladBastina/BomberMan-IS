@@ -1,8 +1,13 @@
 #include "Map.h"
+#include <sstream>
+#include <stdexcept>
+#include <fstream>
+#include <iostream>
 
 Map::Map(IPlayer* player1, IPlayer* player2)
 {
-    Initialize(player1, player2);
+    //Initialize(player1, player2);
+    LoadFromFile("../Bomberman.API/Assets/board.txt", player1, player2);
 }
 
 void Map::Initialize(IPlayer* player1, IPlayer* player2)
@@ -230,6 +235,83 @@ void Map::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
     //    break;
     //}
     //}
+}
+
+void Map::LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2)
+{
+    ResetMap();
+
+    std::ifstream file(filePath);
+
+    if (!file.is_open()) {
+        std::cerr << "Error: Unable to open file 'board_layout.txt'" << std::endl;
+    }
+
+    int line = 0;
+    std::string row;
+    while (std::getline(file, row) && line < 14) {
+        std::istringstream rowStream(row);
+        std::vector<ISquare*> lineVector;
+        int col = 0;
+        int value;
+
+        while (rowStream >> value && col < 14) {
+            ISquare* square = nullptr;
+            if (value == 0) {
+                square = new Square(
+                    std::make_pair(line, col),
+                    nullptr,
+                    ESquareType::UnbreakableWall,
+                    "../Bomberman.API/Assets/wall_unbreakable.png"
+                );
+            }
+            else if (value == 1) {
+                square = new Square(
+                    std::make_pair(line, col),
+                    nullptr,
+                    ESquareType::Grass,
+                    "../Bomberman.API/Assets/grass.png"
+                );
+            }
+            else if (value == 2) {
+                square = new Square(
+                    std::make_pair(line, col),
+                    nullptr,
+                    ESquareType::Wall,
+                    "../Bomberman.API/Assets/wall_breakable.png"
+                );
+            }
+            else {
+                std::cerr << "Warning: Invalid value at (" << line << ", " << col << "). Defaulting to Grass." << std::endl;
+                square = new Square(
+                    std::make_pair(line, col),
+                    nullptr,
+                    ESquareType::Grass,
+                    "../Bomberman.API/Assets/grass.png"
+                );
+            }
+
+            lineVector.push_back(square);
+            ++col;
+        }
+
+        if (col != 14) {
+            std::cerr << "Error: Row " << line << " does not contain 14 columns!" << std::endl;
+        }
+
+        board.push_back(lineVector);
+        ++line;
+    }
+
+    if (line != 14) {
+        std::cerr << "Error: File does not contain 14 rows!" << std::endl;
+    }
+
+    file.close();
+
+    board[1][1]->SetPlayer(player1);
+    board[12][12]->SetPlayer(player2);
+
 }
 
 

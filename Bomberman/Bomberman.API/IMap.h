@@ -35,6 +35,9 @@ public:
 
     virtual void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) = 0;
 
+    virtual void LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2) = 0;
+
+
     // Virtual destructor to ensure proper cleanup of derived classes.
     virtual ~IMap() = default;
 };
