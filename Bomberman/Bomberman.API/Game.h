@@ -41,6 +41,5 @@ public:
     bool addGameListener(IGameListener* listener) override;
     bool removeGameListener(IGameListener* listener) override;
 
-    // Inherited via IGame
     void notifyAllListeners() override;
 };

@@ -4,7 +4,7 @@
 Game::Game() : gameIsOver(false)
 {
     this->player1 = new Player(EPlayerType::One, 1, 1);
-    this->player2 = new Player(EPlayerType::Two, 13, 13);
+    this->player2 = new Player(EPlayerType::Two, 12, 12);
     this->map = new Map(player1,player2);
 }
 
