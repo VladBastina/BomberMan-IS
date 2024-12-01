@@ -1,12 +1,7 @@
 #pragma once
 #include "IMap.h"
 #include <random>
-
-enum class EMapInitialization
-{
-	FromFile,
-	Random
-};
+#include "EMapInitialization.h"
 
 class Map : public IMap
 {

@@ -164,6 +164,8 @@ TEST(GameTest, ExplosionDestroyTest)
     EXPECT_EQ(game->getMap()->GetSquare(2, 3)->GetSquareType(), ESquareType::Grass);
     EXPECT_EQ(game->getMap()->GetSquare(3, 2)->GetSquareType(), ESquareType::Grass);
 
+    EXPECT_FALSE(game->isOver());
+
     delete game;
 }
 

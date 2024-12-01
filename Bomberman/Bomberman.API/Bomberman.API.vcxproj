@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="Bomb.h" />
     <ClInclude Include="Constants.h" />
+    <ClInclude Include="EMapInitialization.h" />
     <ClInclude Include="EPlayerMovementType.h" />
     <ClInclude Include="EPlayerType.h" />
     <ClInclude Include="ESquareType.h" />
