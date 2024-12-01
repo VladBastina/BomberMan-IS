@@ -3,11 +3,11 @@
 
 
 // Constructor
-Game::Game() : gameIsOver(false),gameTimer(100.0f)
+Game::Game(EMapInitialization mapInitialization) : gameIsOver(false),gameTimer(100.0f)
 {
     this->player1 = new Player(EPlayerType::One, 1, 1);
     this->player2 = new Player(EPlayerType::Two, 12, 12);
-    this->map = new Map(player1,player2);
+    this->map = new Map(player1,player2,mapInitialization);
 }
 
 Game::~Game() {

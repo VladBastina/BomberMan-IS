@@ -22,7 +22,7 @@ private:
     std::vector<IGameListener*> listeners;
 
 public:
-    Game();
+    Game(EMapInitialization mapInitialization);
     ~Game();
 
     IMap* getMap() override;

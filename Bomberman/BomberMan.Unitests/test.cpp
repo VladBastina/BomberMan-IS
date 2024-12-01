@@ -2,7 +2,7 @@
 
 TEST(GameTest, SpawnTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     EXPECT_EQ(game->GetPlayer1()->GetPosition().first, 1);
     EXPECT_EQ(game->GetPlayer1()->GetPosition().second, 1);
@@ -14,7 +14,7 @@ TEST(GameTest, SpawnTest)
 }
 
 TEST(GameTest, MovePlayer1) {
-    Game* game = new Game();
+    Game* game = new Game(EMapInitialization::FromFile);
     IPlayer* player1 = game->GetPlayer1();
 
     // Move Up
@@ -47,7 +47,7 @@ TEST(GameTest, MovePlayer1) {
 }
 
 TEST(GameTest, MovePlayer2) {
-    Game* game = new Game();
+    Game* game = new Game(EMapInitialization::FromFile);
     IPlayer* player2 = game->GetPlayer2();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
@@ -82,7 +82,7 @@ TEST(GameTest, MovePlayer2) {
 }
 
 TEST(GameTest, GameOver) {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
     EXPECT_FALSE(game->isOver());
     game->SetGameOver();
     EXPECT_TRUE(game->isOver());
@@ -95,7 +95,7 @@ public:
 };
 
 TEST(GameTest, AddRemoveGameListener) {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
     MockGameListener listener1, listener2;
     EXPECT_TRUE(game->addGameListener(&listener1));
     EXPECT_TRUE(game->addGameListener(&listener2));
@@ -107,7 +107,7 @@ TEST(GameTest, AddRemoveGameListener) {
 
 TEST(GameTest, ListenerCallTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
     MockGameListener* listener = new MockGameListener();
 
     EXPECT_CALL(*listener, OnKeyPressed).Times(1);
@@ -120,7 +120,7 @@ TEST(GameTest, ListenerCallTest)
 
 TEST(GameTest, MultipleBombsPlacedBySamePlayer)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     game->PlaceBomb(game->GetPlayer1());
 
@@ -138,7 +138,7 @@ TEST(GameTest, MultipleBombsPlacedBySamePlayer)
 
 TEST(GameTest, ExplosionDestroyTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     EXPECT_EQ(game->getMap()->GetSquare(2, 3)->GetSquareType(), ESquareType::Wall);
     EXPECT_EQ(game->getMap()->GetSquare(3, 2)->GetSquareType(), ESquareType::Wall);
@@ -169,7 +169,7 @@ TEST(GameTest, ExplosionDestroyTest)
 
 TEST(GameTest, ExplosionPlayerInPlaceTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
     game->PlaceBomb(game->GetPlayer1());
     game->HandleExplosion(3);
 
@@ -180,7 +180,7 @@ TEST(GameTest, ExplosionPlayerInPlaceTest)
 
 TEST(GameTest, ExplosionPLayerNextToBomb)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
     game->PlaceBomb(game->GetPlayer1());
@@ -193,7 +193,7 @@ TEST(GameTest, ExplosionPLayerNextToBomb)
 
     delete game;
 
-    game = new Game();
+    game = new Game(EMapInitialization::FromFile);
 
     game->PlaceBomb(game->GetPlayer1());
 
@@ -205,7 +205,7 @@ TEST(GameTest, ExplosionPLayerNextToBomb)
     
     delete game;
 
-    game = new Game();
+    game = new Game(EMapInitialization::FromFile);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -222,7 +222,7 @@ TEST(GameTest, ExplosionPLayerNextToBomb)
 
     delete game;
     
-    game = new Game();
+    game = new Game(EMapInitialization::FromFile);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
 
@@ -242,7 +242,7 @@ TEST(GameTest, ExplosionPLayerNextToBomb)
 
 TEST(GameTest, ExplosionPlayerTwoApartTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     game->PlaceBomb(game->GetPlayer1());
 
@@ -258,7 +258,7 @@ TEST(GameTest, ExplosionPlayerTwoApartTest)
 
     delete game;
 
-    game = new Game();
+    game = new Game(EMapInitialization::FromFile);
 
     game->PlaceBomb(game->GetPlayer1());
 
@@ -274,7 +274,7 @@ TEST(GameTest, ExplosionPlayerTwoApartTest)
 
     delete game;
 
-    game = new Game();
+    game = new Game(EMapInitialization::FromFile);
 
     game->PlaceBomb(game->GetPlayer2());
 
@@ -290,7 +290,7 @@ TEST(GameTest, ExplosionPlayerTwoApartTest)
 
     delete game;
 
-    game = new Game();
+    game = new Game(EMapInitialization::FromFile);
 
     game->PlaceBomb(game->GetPlayer2());
 
@@ -309,7 +309,7 @@ TEST(GameTest, ExplosionPlayerTwoApartTest)
 
 TEST(GameTest, FireTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Down);
@@ -335,7 +335,7 @@ TEST(GameTest, FireTest)
 
 TEST(GameTest, FirePlayerTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Down);
@@ -361,7 +361,7 @@ TEST(GameTest, FirePlayerTest)
 
 TEST(GameTest, FireDisappearTest)
 {
-    IGame* game = new Game();
+    IGame* game = new Game(EMapInitialization::FromFile);
 
     std::this_thread::sleep_for(std::chrono::milliseconds(500));
     game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Down);
@@ -387,6 +387,17 @@ TEST(GameTest, FireDisappearTest)
     EXPECT_FALSE(game->getMap()->GetSquare(2, 2)->HasFire());
     EXPECT_FALSE(game->getMap()->GetSquare(2, 1)->HasFire());
     EXPECT_FALSE(game->getMap()->GetSquare(1, 2)->HasFire());
+
+    delete game;
+}
+
+TEST(GameTest, GameOverTimerTest)
+{
+    IGame* game = new Game(EMapInitialization::FromFile);
+
+    game->UpdateTImer(100);
+
+    EXPECT_TRUE(game->isOver());
 
     delete game;
 }

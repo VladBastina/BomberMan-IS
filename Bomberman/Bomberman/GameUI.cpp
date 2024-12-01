@@ -5,7 +5,7 @@
 
 void GameUI::initVariables()
 {
-	this->game = new Game();
+	this->game = new Game(EMapInitialization::Random);
 	game->addGameListener(this);
 
 	if (!this->gameOverTexture.loadFromFile("../../Bomberman/Bomberman.API/Assets/game_over.jpg")) {
@@ -54,7 +54,7 @@ GameUI::~GameUI()
 void GameUI::startNewGame()
 {
 	delete this->game;
-	this->game = new Game();
+	this->game = new Game(EMapInitialization::Random);
 	game->addGameListener(this);
 	game->notifyAllListeners();
 }

@@ -2,6 +2,12 @@
 #include "IMap.h"
 #include <random>
 
+enum class EMapInitialization
+{
+	FromFile,
+	Random
+};
+
 class Map : public IMap
 {
 private:
@@ -9,7 +15,7 @@ private:
 
 
 public:
-	Map(IPlayer* player1 , IPlayer* player2);
+	Map(IPlayer* player1 , IPlayer* player2,EMapInitialization mapInitialization);
 
 	// Inherited via IMap
 	void Initialize(IPlayer* player1, IPlayer* player2) override;

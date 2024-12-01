@@ -4,10 +4,12 @@
 #include <fstream>
 #include <iostream>
 
-Map::Map(IPlayer* player1, IPlayer* player2)
+Map::Map(IPlayer* player1, IPlayer* player2, EMapInitialization mapInitialization)
 {
-    //Initialize(player1, player2);
-    LoadFromFile(Constants::BoardTxtPath, player1, player2);
+    if(mapInitialization == EMapInitialization::Random)
+        Initialize(player1, player2);
+    else
+        LoadFromFile(Constants::BoardTxtPath, player1, player2);
 }
 
 void Map::Initialize(IPlayer* player1, IPlayer* player2)
