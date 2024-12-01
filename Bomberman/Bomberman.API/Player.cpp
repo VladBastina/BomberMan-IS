@@ -4,7 +4,7 @@ Player::Player(EPlayerType playerType, int startX, int startY)
     : type(playerType), position(startX, startY), alive(true), placeBomb(false), activePowerup(false)
 {
     imagePath = type == EPlayerType::One ? Constants::Player1PNGPath : Constants::Player2PNGPath;
-    if (Constants::isValidPath(imagePath)) {
+    if (!Constants::isValidPath(imagePath)) {
         std::cerr << "Image does not exist: " << imagePath << std::endl;
     }
     lastMoveTime = std::chrono::steady_clock::now();

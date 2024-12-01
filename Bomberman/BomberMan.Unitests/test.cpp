@@ -397,7 +397,7 @@ TEST(GameTest, GameOverTimerTest)
 {
     IGame* game = new Game(EMapInitialization::FromFile);
 
-    game->UpdateTImer(100);
+    game->UpdateTimer(100);
 
     EXPECT_TRUE(game->isOver());
 

@@ -3,7 +3,7 @@
 Bomb::Bomb(std::pair<int, int> position, int range,float timer): position(position), range(range), timer(timer)
 {
 	imagePath = Constants::BombPNGPath;
-	if (Constants::isValidPath(imagePath)) {
+	if (!Constants::isValidPath(imagePath)) {
 		std::cerr << "Image does not exist: " << imagePath << std::endl;
 	}
 }
