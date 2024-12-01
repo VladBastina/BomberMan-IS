@@ -1,7 +1,7 @@
 #include "Square.h"
 #include <iostream>
 
-Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType, std::string imagePath): bomb(nullptr)
+Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType, std::string imagePath): bomb(nullptr), fire(nullptr)
 {
     this->position = pos;
     this->player = player;
@@ -49,6 +49,11 @@ IBomb* Square::GetBomb() const
     return bomb;
 }
 
+IFire* Square::GetFire() const
+{
+    return fire;
+}
+
 std::string Square::GetImagePath() const
 {
     return imagePath;
@@ -64,6 +69,12 @@ void Square::SetBomb(IBomb* bomb)
 {
     this->bomb = bomb;
 }
+
+void Square::SetFire(IFire* fire)
+{
+    this->fire = fire;
+}
+
 
 void Square::SetImagePath(std::string imagePath)
 {
@@ -112,6 +123,15 @@ void Square::ClearBomb()
     }
 }
 
+void Square::ClearFire()
+{
+    if (fire)
+    {
+        delete fire;
+        fire = nullptr;
+    }
+}
+
 bool Square::ImageExist(const std::string& path)
 {
     std::ifstream file(path);
@@ -128,10 +148,14 @@ bool Square::HasBomb() const
     return bomb != nullptr;
 }
 
+bool Square::HasFire() const
+{
+    return fire != nullptr;
+}
+
 bool Square::HasBombExploded() const
 {
     return this->bomb->HasExploded();
 }
-
 
 

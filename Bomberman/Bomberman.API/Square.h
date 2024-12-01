@@ -1,7 +1,6 @@
 #pragma once
 #include "ISquare.h"
 #include <fstream>
-
 class Square : public ISquare
 {
 public:
@@ -15,21 +14,25 @@ public:
 	bool HasPowerUp() const override;
 	IPlayer* GetPlayer() const override;
 	IBomb* GetBomb() const override;
+	IFire* GetFire() const override;
 	std::string GetImagePath() const override;
 
 
 
 	void SetPlayer(IPlayer* player) override;
 	void SetBomb(IBomb* bomb) override;
+	void SetFire(IFire* fire) override;
 	void SetImagePath(std::string imagePath) override;
 	void SetSquareType(ESquareType squareType) override;
 	void RemovePlayer() override;
 	bool BreakWall() override;
 	void DropPowerUp() override;
 	void ClearBomb() override;
+	void ClearFire() override;
 
 	bool HasWall() const override;
 	bool HasBomb() const override;
+	bool HasFire() const override;
 	bool HasBombExploded() const override;
 
 private:
@@ -39,6 +42,7 @@ private:
 	std::pair<int, int> position;
 	IPlayer* player;
 	IBomb* bomb;
+	IFire* fire;
 	ESquareType squareType;
 	std::string imagePath;
 

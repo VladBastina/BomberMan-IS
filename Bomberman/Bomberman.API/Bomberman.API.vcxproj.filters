@@ -60,6 +60,12 @@
     <ClInclude Include="ESquareType.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="IFire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fire.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Player.cpp">
@@ -75,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Bomb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fire.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

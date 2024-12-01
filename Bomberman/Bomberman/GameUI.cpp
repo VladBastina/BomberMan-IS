@@ -46,6 +46,7 @@ void GameUI::startNewGame()
 void GameUI::OnKeyPressed(float elapsedTime)
 {
 	this->game->HandleExplosion(elapsedTime);
+	this->game->HandleActiveFire(elapsedTime);
 	this->pollEvents();
 }
 
@@ -205,7 +206,23 @@ void GameUI::renderSquare(const ISquare* square)
 		bombSprite.setScale(scaleX, scaleY);
 		bombSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
 		this->window->draw(bombSprite);
-
+	}
+	IFire* fire = square->GetFire();
+	if (fire)
+	{
+		std::string fireImagePath = fire->GetImagePath();
+		if (textureCache.find(fireImagePath) == textureCache.end()) {
+			sf::Texture texture;
+			if (!texture.loadFromFile(fireImagePath)) {
+				std::cerr << "Failed to load texture: " << fireImagePath << std::endl;
+				return;
+			}
+			textureCache[fireImagePath] = std::move(texture);
+		}
+		sf::Sprite fireSprite(textureCache[fireImagePath]);
+		fireSprite.setScale(scaleX, scaleY);
+		fireSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
+		this->window->draw(fireSprite);
 	}
 }
 

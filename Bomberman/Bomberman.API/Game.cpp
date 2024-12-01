@@ -1,5 +1,7 @@
 #include "Game.h"
 
+
+
 // Constructor
 Game::Game() : gameIsOver(false)
 {
@@ -107,14 +109,20 @@ void Game::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
     ISquare* targetSquare = this->map->GetSquare(newPosition.first, newPosition.second);
     if (targetSquare && targetSquare->HasWall() && !targetSquare->HasPlayer())
     {
+        if (targetSquare->HasFire())
+        {
+            this->SetGameOver();
+            notifyAllListeners();
+            return;
+        }
         player->SetLastMoveTime(std::chrono::steady_clock::now());
         targetSquare->SetPlayer(player);
 
         ISquare* currentSquare = this->map->GetSquare(oldPosition.first, oldPosition.second);
         currentSquare->RemovePlayer();
-
         notifyAllListeners();
     }
+
 }
 
 void Game::PlaceBomb(IPlayer* player)
@@ -140,11 +148,19 @@ void Game::HandleExplosion(float elapsedTime)
             square->GetBomb()->UpdateTimer(elapsedTime);
             if (square->HasBombExploded())
             {
+                if (square->HasPlayer())
+                {
+                    this->SetGameOver();
+                    notifyAllListeners();
+                    return;
+                }
                 int rangeBomb = square->GetBomb()->GetRange();
+                IFire* fire = new Fire(square->GetPosition(), 2);
+                square->SetFire(fire);
+                activeFire.push_back(fire);
                 square->ClearBomb();
                 std::get<2>((*bomb))->SetPlacedBomb(false);
                 bomb = activeBombs.erase(bomb);
-              
                 UpdateMap(square->GetPosition(), rangeBomb);
 
                 notifyAllListeners();
@@ -157,6 +173,28 @@ void Game::HandleExplosion(float elapsedTime)
         }
     }
 
+
+}
+
+void Game::HandleActiveFire(const float& elapsedTime)
+{
+    bool activeFireState = false;
+
+    for (auto fire = activeFire.begin(); fire != activeFire.end();)
+    {
+        if ((*fire)->HasExpired(elapsedTime))
+        {   
+            std::pair<int, int> positionFire = (*fire)->GetPosition();
+            ISquare* square = map->GetSquare(positionFire.first, positionFire.second);
+            square->ClearFire();
+            fire = activeFire.erase(fire);
+            activeFireState = true;
+        }
+        else
+            fire++;
+    }
+    if (activeFireState)
+        notifyAllListeners();
 
 }
 
@@ -190,12 +228,13 @@ void Game::UpdateMap(std::pair<int,int> position,int rangeBomb)
                 {
                     targetSquare->SetSquareType(ESquareType::Grass);
                     targetSquare->SetImagePath("../Bomberman.API/Assets/grass.png");
-
                 }
                 break;
 
             }
-
+            IFire* fire = new Fire(std::make_pair(targetRow, targetCol), 2);
+            targetSquare->SetFire(fire);
+            activeFire.push_back(fire);
         }
 
     }
