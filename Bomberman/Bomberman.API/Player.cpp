@@ -1,9 +1,9 @@
 #include "Player.h"
 
 Player::Player(EPlayerType playerType, int startX, int startY)
-    : type(playerType), position(startX, startY), alive(true), placedBomb(false), activePowerup(false) 
+    : type(playerType), position(startX, startY), alive(true), placedBomb(false), activePowerup(false)
 {
-    imagePath = type == EPlayerType::One ? "../Bomberman.API/Assets/player1.png" : "../Bomberman.API/Assets/player2.png";
+    imagePath = type == EPlayerType::One ? Constants::Player1PNGPath : Constants::Player2PNGPath;
     if (!ImageExist(imagePath)) {
         std::cerr << "Image does not exist: " << imagePath << std::endl;
     }

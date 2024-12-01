@@ -1,8 +1,9 @@
 #include "Fire.h"
+#include "Constants.h"
 
 Fire::Fire(std::pair<int, int> position, float timer): position{position}, timer{timer}
 {
-    imagePath = "../Bomberman.API/Assets/fire.png";
+    imagePath = Constants::FirePNGPath;
 }
 
 std::pair<int, int> Fire::GetPosition() const
@@ -34,5 +35,5 @@ bool Fire::HasExpired(const float& elapsedTime)
 {
     timer -= elapsedTime;
     return timer <= 0.0f;
-        
+
 }
