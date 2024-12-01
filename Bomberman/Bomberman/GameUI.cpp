@@ -1,6 +1,7 @@
 #include "GameUI.h"
 #include <iostream>
 #include "InputHandler.h"
+#include "SpriteHandler.h"
 
 void GameUI::initVariables()
 {
@@ -77,9 +78,8 @@ void GameUI::pollEvents()
 			break;
 		case sf::Event::KeyPressed:
 			if (this->game->isOver()) {
-				// If in Game Over mode
 				if (this->ev.key.code == sf::Keyboard::R) {
-					startNewGame(); // Restart the game
+					startNewGame();
 				}
 			}
 			else {
@@ -89,7 +89,6 @@ void GameUI::pollEvents()
 		}
 	}
 }
-
 
 void GameUI::render()
 {
@@ -114,92 +113,33 @@ void GameUI::render()
 		this->window->draw(this->gameOverSprite);
 	}
 
-
 	this->window->display();
 }
 
 void GameUI::renderSquare(const ISquare* square)
 {
-	std::string imagePath = square->GetImagePath();
+	SpriteHandler spriteManager(this->window, 57.0f);
 
-	if (textureCache.find(imagePath) == textureCache.end()) {
-		sf::Texture texture;
-		if (!texture.loadFromFile(imagePath)) {
-			std::cerr << "Failed to load texture: " << imagePath << std::endl;
-			return;
-		}
-		textureCache[imagePath] = std::move(texture);
-	}
-
-	sf::Sprite sprite(textureCache[imagePath]);
-
-	// since our pngs are 16/16 we need to scale them
-	float scaleX = 57.0f / 16.0f; // Grid cell width / Image widt
-	float scaleY = 57.0f / 16.0f; // Grid cell height / Image height
-
-	sprite.setScale(scaleX, scaleY);
-
-	std::pair<int, int> position = square->GetPosition();
-	int row = position.first;
-	int col = position.second;
-
-	sprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
-	this->window->draw(sprite);
+	std::string squareImagePath = square->GetImagePath();
+	std::pair<int, int> squarePosition = square->GetPosition();
+	spriteManager.DrawSquare(squareImagePath, squarePosition);
 
 	IPlayer* player = square->GetPlayer();
 	if (player) {
 		std::string playerImagePath = player->GetImagePath();
-
-		if (textureCache.find(playerImagePath) == textureCache.end()) {
-			sf::Texture texture;
-			if (!texture.loadFromFile(playerImagePath)) {
-				std::cerr << "Failed to load texture: " << playerImagePath << std::endl;
-				return;
-			}
-			textureCache[playerImagePath] = std::move(texture);
-		}
-
-		sf::Sprite playerSprite(textureCache[playerImagePath]);
-
-		playerSprite.setScale(scaleX, scaleY);
-		playerSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
-
-		this->window->draw(playerSprite);
+		spriteManager.DrawPlayer(playerImagePath, squarePosition);
 	}
 
 	IBomb* bomb = square->GetBomb();
-	if (bomb)
-	{
+	if (bomb) {
 		std::string bombImagePath = bomb->GetImagePath();
-		if (textureCache.find(bombImagePath) == textureCache.end()) {
-			sf::Texture texture;
-			if (!texture.loadFromFile(bombImagePath)) {
-				std::cerr << "Failed to load texture: " << bombImagePath << std::endl;
-				return;
-			}
-			textureCache[bombImagePath] = std::move(texture);
-		}
-		sf::Sprite bombSprite(textureCache[bombImagePath]);
-		bombSprite.setScale(scaleX, scaleY);
-		bombSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
-		this->window->draw(bombSprite);
+		spriteManager.DrawEntity(bombImagePath, squarePosition);
 	}
+
 	IFire* fire = square->GetFire();
-	if (fire)
-	{
+	if (fire) {
 		std::string fireImagePath = fire->GetImagePath();
-		if (textureCache.find(fireImagePath) == textureCache.end()) {
-			sf::Texture texture;
-			if (!texture.loadFromFile(fireImagePath)) {
-				std::cerr << "Failed to load texture: " << fireImagePath << std::endl;
-				return;
-			}
-			textureCache[fireImagePath] = std::move(texture);
-		}
-		sf::Sprite fireSprite(textureCache[fireImagePath]);
-		fireSprite.setScale(scaleX, scaleY);
-		fireSprite.setPosition(static_cast<float>(col * 57), static_cast<float>(row * 57));
-		this->window->draw(fireSprite);
+		spriteManager.DrawEntity(fireImagePath, squarePosition);
 	}
 }
 

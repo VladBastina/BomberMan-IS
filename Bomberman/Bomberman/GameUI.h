@@ -32,7 +32,7 @@ public:
 	void pollEvents();
 	void render();
 	void renderSquare(const ISquare* square);
-	
+
 	const bool running() const;
 
 	// Inherited via IGameListener

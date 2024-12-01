@@ -4,6 +4,8 @@
 #include <string>
 #include <utility>
 #include "Square.h"
+#include "Constants.h"
+
 
 class IMap {
 

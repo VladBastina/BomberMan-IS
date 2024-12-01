@@ -7,7 +7,7 @@
 Map::Map(IPlayer* player1, IPlayer* player2)
 {
     //Initialize(player1, player2);
-    LoadFromFile("../Bomberman.API/Assets/board.txt", player1, player2);
+    LoadFromFile(Constants::BoardTxtPath, player1, player2);
 }
 
 void Map::Initialize(IPlayer* player1, IPlayer* player2)
@@ -25,7 +25,7 @@ void Map::Initialize(IPlayer* player1, IPlayer* player2)
                     std::make_pair(line, col),
                     nullptr,
                     ESquareType::UnbreakableWall,
-                    "../Bomberman.API/Assets/wall_unbreakable.png"
+                    Constants::WallUnbreakablePNGPath
                 );
             }
             // 2. Grass areas
@@ -37,13 +37,13 @@ void Map::Initialize(IPlayer* player1, IPlayer* player2)
                     std::make_pair(line, col),
                     nullptr,
                     ESquareType::Grass,
-                    "../Bomberman.API/Assets/grass.png"
+                    Constants::GrassPNGPath
                 );
             }
             // 3. Remaining cells: randwom between Grass and Wall
-            else 
+            else
             {
-                static std::random_device rd; 
+                static std::random_device rd;
                 static std::mt19937 gen(rd());
                 static std::uniform_int_distribution<> dis(0, 1);
 
@@ -52,7 +52,7 @@ void Map::Initialize(IPlayer* player1, IPlayer* player2)
                         std::make_pair(line, col),
                         nullptr,
                         ESquareType::Grass,
-                        "../Bomberman.API/Assets/grass.png"
+                        Constants::GrassPNGPath
                     );
                 }
                 else {
@@ -60,7 +60,7 @@ void Map::Initialize(IPlayer* player1, IPlayer* player2)
                         std::make_pair(line, col),
                         nullptr,
                         ESquareType::Wall,
-                        "../Bomberman.API/Assets/wall_breakable.png"
+                        Constants::WallBreakablePNGPath
                     );
                 }
             }
@@ -147,7 +147,7 @@ void Map::UpdateSquare(int x, int y, ISquare* newSquare)
 
 void Map::PlaceBomb(int x, int y)
 {
-    
+
     IBomb* bomb = new Bomb(std::make_pair(x, y),2,3);
     this->board[x][y]->SetBomb(bomb);
 
@@ -262,7 +262,7 @@ void Map::LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2)
                     std::make_pair(line, col),
                     nullptr,
                     ESquareType::UnbreakableWall,
-                    "../Bomberman.API/Assets/wall_unbreakable.png"
+                    Constants::WallUnbreakablePNGPath
                 );
             }
             else if (value == 1) {
@@ -270,7 +270,7 @@ void Map::LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2)
                     std::make_pair(line, col),
                     nullptr,
                     ESquareType::Grass,
-                    "../Bomberman.API/Assets/grass.png"
+                    Constants::GrassPNGPath
                 );
             }
             else if (value == 2) {
@@ -278,7 +278,7 @@ void Map::LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2)
                     std::make_pair(line, col),
                     nullptr,
                     ESquareType::Wall,
-                    "../Bomberman.API/Assets/wall_breakable.png"
+                    Constants::WallBreakablePNGPath
                 );
             }
             else {
@@ -287,7 +287,7 @@ void Map::LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2)
                     std::make_pair(line, col),
                     nullptr,
                     ESquareType::Grass,
-                    "../Bomberman.API/Assets/grass.png"
+                    Constants::GrassPNGPath
                 );
             }
 
