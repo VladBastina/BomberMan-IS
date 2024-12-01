@@ -3,7 +3,7 @@
 
 
 // Constructor
-Game::Game() : gameIsOver(false)
+Game::Game() : gameIsOver(false),gameTimer(100.0f)
 {
     this->player1 = new Player(EPlayerType::One, 1, 1);
     this->player2 = new Player(EPlayerType::Two, 12, 12);
@@ -62,6 +62,11 @@ IPlayer* Game::GetPlayer1()
 IPlayer* Game::GetPlayer2()
 {
     return player2;
+}
+
+float Game::GetGameTimer()
+{
+    return gameTimer;
 }
 
 void Game::SetGameOver()
@@ -238,5 +243,19 @@ void Game::UpdateMap(std::pair<int,int> position,int rangeBomb)
         }
 
     }
+
+}
+
+void Game::UpdateTImer(float elapsedTime)
+{
+    if (gameIsOver) return;
+
+    gameTimer -= elapsedTime;
+    if (gameTimer <= 1)
+    {
+        gameTimer = 0;
+        SetGameOver();
+    }
+    notifyAllListeners();
 
 }

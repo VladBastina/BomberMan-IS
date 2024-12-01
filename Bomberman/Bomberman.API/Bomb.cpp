@@ -1,5 +1,4 @@
 #include "Bomb.h"
-#include <thread>
 
 Bomb::Bomb(std::pair<int, int> position, int range,float timer): position(position), range(range), timer(timer)
 {

@@ -12,12 +12,15 @@ private:
 	sf::Event ev;
 	IGame* game;
 	std::map<std::string, sf::Texture> textureCache;
+	
 
 	sf::Texture gameOverTexture; // Texture for the "Game Over" screen
 	sf::Sprite gameOverSprite;   // Sprite for the "Game Over" screen
-
+	sf::Text timer;
+	sf::Font font;
 	void initVariables();
 	void initWindow();
+	void initTimer();
 
 public:
 	GameUI();
