@@ -116,31 +116,27 @@ void GameUI::render()
 	this->window->display();
 }
 
+template <typename T>
+void renderObject(const T* object, SpriteHandler& spriteManager, const std::pair<int, int>& position)
+{
+	if (object)
+	{
+		std::string imagePath = object->GetImagePath();
+		spriteManager.DrawEntity(imagePath, position);
+	}
+}
+
+
 void GameUI::renderSquare(const ISquare* square)
 {
 	SpriteHandler spriteManager(this->window, 57.0f);
 
-	std::string squareImagePath = square->GetImagePath();
 	std::pair<int, int> squarePosition = square->GetPosition();
-	spriteManager.DrawSquare(squareImagePath, squarePosition);
 
-	IPlayer* player = square->GetPlayer();
-	if (player) {
-		std::string playerImagePath = player->GetImagePath();
-		spriteManager.DrawPlayer(playerImagePath, squarePosition);
-	}
-
-	IBomb* bomb = square->GetBomb();
-	if (bomb) {
-		std::string bombImagePath = bomb->GetImagePath();
-		spriteManager.DrawEntity(bombImagePath, squarePosition);
-	}
-
-	IFire* fire = square->GetFire();
-	if (fire) {
-		std::string fireImagePath = fire->GetImagePath();
-		spriteManager.DrawEntity(fireImagePath, squarePosition);
-	}
+	renderObject(square, spriteManager, squarePosition);
+	renderObject(square->GetPlayer(), spriteManager, squarePosition);
+	renderObject(square->GetBomb(), spriteManager, squarePosition);
+	renderObject(square->GetFire(), spriteManager, squarePosition);
 }
 
 const bool GameUI::running() const

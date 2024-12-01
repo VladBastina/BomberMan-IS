@@ -15,6 +15,12 @@ Game::~Game() {
     delete map;
     delete player1;
     delete player2;
+    for (auto fire : activeFire)
+    {
+        delete fire;
+    }
+    activeFire.clear();
+    activeBombs.clear();
 }
 
 bool Game::addGameListener(IGameListener* listener) 
