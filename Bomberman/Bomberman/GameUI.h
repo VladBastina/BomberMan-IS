@@ -21,6 +21,7 @@ private:
 	void initVariables();
 	void initWindow();
 	void initTimer();
+	void renderObjectsOnSquare(const ISquare* square);
 
 public:
 	GameUI();
@@ -28,10 +29,9 @@ public:
 
 
 	void startNewGame();
-	void OnKeyPressed(float elapsedTime);
+	void Update(float elapsedTime);
 	void pollEvents();
 	void render();
-	void renderSquare(const ISquare* square);
 
 	const bool running() const;
 

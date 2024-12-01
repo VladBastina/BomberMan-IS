@@ -2,11 +2,10 @@
 
 Bomb::Bomb(std::pair<int, int> position, int range,float timer): position(position), range(range), timer(timer)
 {
-	imagePath = "../Bomberman.API/Assets/bomb.png";
-	/*if (!ImageExist(imagePath)) {
+	imagePath = Constants::BombPNGPath;
+	if (Constants::isValidPath(imagePath)) {
 		std::cerr << "Image does not exist: " << imagePath << std::endl;
-	}*/
-
+	}
 }
 
 std::pair<int, int> Bomb::GetPosition() const
@@ -19,10 +18,6 @@ int Bomb::GetRange() const
 	return range;
 }
 
-std::chrono::steady_clock::time_point Bomb::GetTimer() const
-{
-	return placedBombTime;
-}
 
 std::string Bomb::GetImagePath() const
 {
@@ -37,11 +32,6 @@ void Bomb::SetPosition(std::pair<int, int> position)
 void Bomb::SetRange(int range)
 {
 	this->range = range;
-}
-
-void Bomb::SetTimer(const std::chrono::steady_clock::time_point& timer)
-{
-	this->placedBombTime = timer;
 }
 
 void Bomb::SetImagePath(const std::string& path)

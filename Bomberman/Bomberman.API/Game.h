@@ -12,11 +12,9 @@ private:
     IPlayer* player1;
     IPlayer* player2;
     bool gameIsOver;
-    float playersMoveDelay;
     float gameTimer;
     std::vector<std::tuple<int,int,IPlayer*>> activeBombs;
     std::vector<IFire*> activeFire;
-
 
 
     std::vector<IGameListener*> listeners;
@@ -41,7 +39,7 @@ public:
     void HandleExplosion(float elapsedTime) override;
     void HandleActiveFire(const float& elapsedTime) override;
     void UpdateMap(std::pair<int,int> position,int rangeBomb);
-    void UpdateTImer(float elapsedTime) override;
+    void UpdateTimer(float elapsedTime) override;
 
     //Codul care modifica codul din UI il trec in metodele acestea si le apelez
     bool addGameListener(IGameListener* listener) override;

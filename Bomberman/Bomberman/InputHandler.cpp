@@ -1,5 +1,19 @@
 #include "InputHandler.h"
 
+const std::unordered_map<sf::Keyboard::Key, EPlayerMovementType> InputHandler::player1Keys = {
+    {sf::Keyboard::W, EPlayerMovementType::Up},
+    {sf::Keyboard::A, EPlayerMovementType::Left},
+    {sf::Keyboard::S, EPlayerMovementType::Down},
+    {sf::Keyboard::D, EPlayerMovementType::Right}
+};
+
+const std::unordered_map<sf::Keyboard::Key, EPlayerMovementType> InputHandler::player2Keys = {
+    {sf::Keyboard::Up, EPlayerMovementType::Up},
+    {sf::Keyboard::Left, EPlayerMovementType::Left},
+    {sf::Keyboard::Down, EPlayerMovementType::Down},
+    {sf::Keyboard::Right, EPlayerMovementType::Right}
+};
+
 void InputHandler::HandleKeyPress(sf::Event& event, IGame* game, sf::RenderWindow* window)
 {
     if (event.key.code == sf::Keyboard::Escape) {
@@ -13,30 +27,16 @@ void InputHandler::HandleKeyPress(sf::Event& event, IGame* game, sf::RenderWindo
 
 void InputHandler::HandlePlayerMovement(sf::Event& event, IGame* game)
 {
-    if (event.key.code == sf::Keyboard::W) {
-        game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Up);
-    }
-    else if (event.key.code == sf::Keyboard::A) {
-        game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Left);
-    }
-    else if (event.key.code == sf::Keyboard::S) {
-        game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Down);
-    }
-    else if (event.key.code == sf::Keyboard::D) {
-        game->MovePlayer(game->GetPlayer1(), EPlayerMovementType::Right);
-    }
+    auto movePlayer1 = player1Keys.find(event.key.code);
+    auto movePlayer2 = player2Keys.find(event.key.code);
 
-    if (event.key.code == sf::Keyboard::Up) {
-        game->MovePlayer(game->GetPlayer2(), EPlayerMovementType::Up);
+    if (movePlayer1 != player1Keys.end())
+    {
+        game->MovePlayer(game->GetPlayer1(), (*movePlayer1).second);
     }
-    else if (event.key.code == sf::Keyboard::Left) {
-        game->MovePlayer(game->GetPlayer2(), EPlayerMovementType::Left);
-    }
-    else if (event.key.code == sf::Keyboard::Down) {
-        game->MovePlayer(game->GetPlayer2(), EPlayerMovementType::Down);
-    }
-    else if (event.key.code == sf::Keyboard::Right) {
-        game->MovePlayer(game->GetPlayer2(), EPlayerMovementType::Right);
+    else if (movePlayer2 != player2Keys.end())
+    {
+        game->MovePlayer(game->GetPlayer2(), (*movePlayer2).second);
     }
 }
 

@@ -7,8 +7,7 @@ void GameUI::initVariables()
 {
 	this->game = new Game(EMapInitialization::Random);
 	game->addGameListener(this);
-
-	if (!this->gameOverTexture.loadFromFile("../../Bomberman/Bomberman.API/Assets/game_over.jpg")) {
+	if (!this->gameOverTexture.loadFromFile(Constants::GameOverPath)) {
 		std::cerr << "Failed to load Game Over image!" << std::endl;
 	}
 	this->gameOverSprite.setTexture(this->gameOverTexture);
@@ -27,7 +26,7 @@ void GameUI::initWindow()
 
 void GameUI::initTimer()
 {
-	if (!font.loadFromFile("../../Bomberman/Bomberman.API/Assets/arial.ttf"))
+	if (!font.loadFromFile(Constants::fontArialPath))
 	{
 		std::cerr << "Error: Could not load font!" << std::endl;
 		return;
@@ -59,10 +58,10 @@ void GameUI::startNewGame()
 	game->notifyAllListeners();
 }
 
-void GameUI::OnKeyPressed(float elapsedTime)
+void GameUI::Update(float elapsedTime)
 {
 	this->game->HandleExplosion(elapsedTime);
-	this->game->UpdateTImer(elapsedTime);
+	this->game->UpdateTimer(elapsedTime);
 	this->game->HandleActiveFire(elapsedTime);
 	this->pollEvents();
 }
@@ -102,12 +101,10 @@ void GameUI::render()
 		const auto& board = this->game->getMap()->getBoard();
 		for (const auto& row : board) {
 			for (const auto* square : row) {
-				if (square) {
-					renderSquare(square);
-				}
+				renderObjectsOnSquare(square);
 			}
 		}
-		window->draw(timer);
+		this->window->draw(timer);
 	}
 	else {
 		this->window->draw(this->gameOverSprite);
@@ -127,7 +124,7 @@ void renderObject(const T* object, SpriteHandler& spriteManager, const std::pair
 }
 
 
-void GameUI::renderSquare(const ISquare* square)
+void GameUI::renderObjectsOnSquare(const ISquare* square)
 {
 	SpriteHandler spriteManager(this->window, 57.0f);
 

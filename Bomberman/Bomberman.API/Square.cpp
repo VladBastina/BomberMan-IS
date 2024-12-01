@@ -7,7 +7,7 @@ Square::Square(std::pair<int, int> pos, IPlayer* player, ESquareType squareType,
     this->player = player;
     this->squareType = squareType;
 
-    if (ImageExist(imagePath)) {
+    if (Constants::isValidPath(imagePath)) {
         this->imagePath = imagePath;
     }
     else {
@@ -132,11 +132,7 @@ void Square::ClearFire()
     }
 }
 
-bool Square::ImageExist(const std::string& path)
-{
-    std::ifstream file(path);
-    return file.good();
-}
+
 
 bool Square::HasWall() const
 {

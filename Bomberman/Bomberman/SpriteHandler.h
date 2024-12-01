@@ -12,9 +12,7 @@ public:
     ~SpriteHandler() = default;
 
     sf::Sprite GenerateSprite(const std::string& imagePath);
-    void DrawSquare(const std::string& squareImagePath, const std::pair<int, int>& position);
     void DrawEntity(const std::string& entityImagePath, const std::pair<int, int>& position);
-    void DrawPlayer(const std::string& playerImagePath, const std::pair<int, int>& position);
 
 private:
     sf::RenderWindow* window;

@@ -10,13 +10,12 @@ private:
     EPlayerType type;
     std::pair<int, int> position;
     bool alive;
-    bool placedBomb;
+    bool placeBomb;
     std::string imagePath;
     bool activePowerup;
     std::chrono::steady_clock::time_point lastMoveTime;
     float moveDelay;
 
-    bool ImageExist(const std::string& path);
 
 public:
     // Constructor
@@ -34,7 +33,7 @@ public:
     // Setters
     void SetPosition(int x, int y) override;
     void SetAlive(bool isAlive) override;
-    void SetPlacedBomb(bool hasPlaced) override;
+    void StatePlaceBomb() override;
     void SetImagePath(const std::string& path) override;
     void SetActivePowerup(bool active) override;
     void SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime);

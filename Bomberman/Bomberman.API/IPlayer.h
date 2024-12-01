@@ -23,7 +23,7 @@ public:
     // Setters
     virtual void SetPosition(int x, int y) = 0;
     virtual void SetAlive(bool alive) = 0;
-    virtual void SetPlacedBomb(bool placed) = 0;
+    virtual void StatePlaceBomb() = 0;
     virtual void SetImagePath(const std::string& path) = 0;
     virtual void SetActivePowerup(bool active) = 0;
     virtual void SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime) = 0;

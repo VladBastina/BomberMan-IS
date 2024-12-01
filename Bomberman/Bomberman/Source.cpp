@@ -10,7 +10,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     while (game->running())
     {
         elapsedTime = clock.restart().asSeconds();
-        game->OnKeyPressed(elapsedTime);
+        game->Update(elapsedTime);
     }
 
     delete game;

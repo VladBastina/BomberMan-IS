@@ -28,15 +28,6 @@ sf::Sprite SpriteHandler::GenerateSprite(const std::string& imagePath) {
     return sprite;
 }
 
-void SpriteHandler::DrawSquare(const std::string& squareImagePath, const std::pair<int, int>& position) {
-    sf::Sprite sprite = GenerateSprite(squareImagePath);
-
-    sprite.setPosition(static_cast<float>(position.second * gridCellSize),
-        static_cast<float>(position.first * gridCellSize));
-
-    window->draw(sprite);
-}
-
 void SpriteHandler::DrawEntity(const std::string& entityImagePath, const std::pair<int, int>& position) {
     sf::Sprite sprite = GenerateSprite(entityImagePath);
 
@@ -44,8 +35,4 @@ void SpriteHandler::DrawEntity(const std::string& entityImagePath, const std::pa
         static_cast<float>(position.first * gridCellSize));
 
     window->draw(sprite);
-}
-
-void SpriteHandler::DrawPlayer(const std::string& playerImagePath, const std::pair<int, int>& position) {
-    DrawEntity(playerImagePath, position);
 }

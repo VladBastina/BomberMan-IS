@@ -1,10 +1,10 @@
 #include "Player.h"
 
 Player::Player(EPlayerType playerType, int startX, int startY)
-    : type(playerType), position(startX, startY), alive(true), placedBomb(false), activePowerup(false)
+    : type(playerType), position(startX, startY), alive(true), placeBomb(false), activePowerup(false)
 {
     imagePath = type == EPlayerType::One ? Constants::Player1PNGPath : Constants::Player2PNGPath;
-    if (!ImageExist(imagePath)) {
+    if (Constants::isValidPath(imagePath)) {
         std::cerr << "Image does not exist: " << imagePath << std::endl;
     }
     lastMoveTime = std::chrono::steady_clock::now();
@@ -25,7 +25,7 @@ bool Player::IsAlive() const {
 }
 
 bool Player::HasPlacedBomb() const {
-    return placedBomb;
+    return placeBomb;
 }
 
 std::string Player::GetImagePath() const {
@@ -51,8 +51,8 @@ void Player::SetAlive(bool isAlive) {
     alive = isAlive;
 }
 
-void Player::SetPlacedBomb(bool hasPlaced) {
-    placedBomb = hasPlaced;
+void Player::StatePlaceBomb() {
+    placeBomb = !placeBomb;
 }
 
 void Player::SetImagePath(const std::string& path) {
@@ -73,10 +73,4 @@ bool Player::CanMove()
     auto now = std::chrono::steady_clock::now();
     auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastMoveTime).count();
     return elapsed >= (moveDelay * 1000);
-}
-
-bool Player::ImageExist(const std::string& path)
-{
-    std::ifstream file(path);
-    return file.good();
 }

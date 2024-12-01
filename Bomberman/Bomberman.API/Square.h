@@ -37,8 +37,6 @@ public:
 
 private:
 
-	bool ImageExist(const std::string& path);
-
 	std::pair<int, int> position;
 	IPlayer* player;
 	IBomb* bomb;

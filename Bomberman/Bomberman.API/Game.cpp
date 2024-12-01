@@ -142,8 +142,8 @@ void Game::PlaceBomb(IPlayer* player)
     if (!this->map->HasBombOnSquare(playerPosition) && !player->HasPlacedBomb())
     {
         this->map->PlaceBomb(playerPosition.first, playerPosition.second);
-        player->SetPlacedBomb(true);
-        activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player ));
+        player->StatePlaceBomb();
+        activeBombs.push_back(std::make_tuple(playerPosition.first, playerPosition.second,player));
 
         notifyAllListeners();
     }
@@ -151,6 +151,7 @@ void Game::PlaceBomb(IPlayer* player)
 
 void Game::HandleExplosion(float elapsedTime)
 {
+    bool stateActiveBombs = false;
     for (auto bomb=activeBombs.begin(); bomb!=activeBombs.end();)
     {
         ISquare* square = map->GetSquare(std::get<0>((*bomb)), std::get<1>((*bomb)));
@@ -170,11 +171,11 @@ void Game::HandleExplosion(float elapsedTime)
                 square->SetFire(fire);
                 activeFire.push_back(fire);
                 square->ClearBomb();
-                std::get<2>((*bomb))->SetPlacedBomb(false);
+                std::get<2>((*bomb))->StatePlaceBomb();
                 bomb = activeBombs.erase(bomb);
                 UpdateMap(square->GetPosition(), rangeBomb);
 
-                notifyAllListeners();
+                stateActiveBombs = true;
             }
             else
             {
@@ -183,6 +184,8 @@ void Game::HandleExplosion(float elapsedTime)
 
         }
     }
+    if (stateActiveBombs)
+        notifyAllListeners();
 
 
 }
@@ -232,13 +235,14 @@ void Game::UpdateMap(std::pair<int,int> position,int rangeBomb)
             if (targetSquare->GetPlayer())
             {
                 this->SetGameOver();
+                return;
             }
             if (targetSquare->GetSquareType() != ESquareType::Grass)
             {
                 if (targetSquare->GetSquareType() == ESquareType::Wall)
                 {
                     targetSquare->SetSquareType(ESquareType::Grass);
-                    targetSquare->SetImagePath("../Bomberman.API/Assets/grass.png");
+                    targetSquare->SetImagePath(Constants::GrassPNGPath);
                 }
                 break;
 
@@ -252,7 +256,7 @@ void Game::UpdateMap(std::pair<int,int> position,int rangeBomb)
 
 }
 
-void Game::UpdateTImer(float elapsedTime)
+void Game::UpdateTimer(float elapsedTime)
 {
     if (gameIsOver) return;
 
