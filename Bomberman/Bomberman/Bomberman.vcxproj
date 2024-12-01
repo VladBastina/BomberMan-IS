@@ -138,10 +138,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="GameUI.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TextureHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameUI.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="TextureHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

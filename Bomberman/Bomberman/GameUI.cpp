@@ -1,5 +1,6 @@
 #include "GameUI.h"
 #include <iostream>
+#include "InputHandler.h"
 
 void GameUI::initVariables()
 {
@@ -60,60 +61,14 @@ void GameUI::pollEvents()
 			this->window->close();
 			break;
 		case sf::Event::KeyPressed:
-			if (this->ev.key.code == sf::Keyboard::Escape) {
-				this->window->close();
-			}
-			else if (this->game->isOver()) {
+			if (this->game->isOver()) {
 				// If in Game Over mode
 				if (this->ev.key.code == sf::Keyboard::R) {
 					startNewGame(); // Restart the game
 				}
 			}
 			else {
-				// If in normal game mode
-				/*if (this->ev.key.code == sf::Keyboard::F || this->ev.key.code == sf::Keyboard::N) {
-					this->game->SetGameOver();
-				}*/
-				if (this->ev.key.code == sf::Keyboard::N)
-				{
-					this->game->PlaceBomb(this->game->GetPlayer2());
-				}
-				if (this->ev.key.code == sf::Keyboard::F)
-				{
-					this->game->PlaceBomb(this->game->GetPlayer1());
-				}
-				if (this->ev.key.code == sf::Keyboard::W)
-				{
-					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Up);
-				}
-				else if (this->ev.key.code == sf::Keyboard::A)
-				{
-					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Left);
-				}
-				else if (this->ev.key.code == sf::Keyboard::S)
-				{
-					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Down);
-				}
-				else if (this->ev.key.code == sf::Keyboard::D)
-				{
-					this->game->MovePlayer(this->game->GetPlayer1(), EPlayerMovementType::Right);
-				}
-				if (this->ev.key.code == sf::Keyboard::Up)
-				{
-					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Up);
-				}
-				if (this->ev.key.code == sf::Keyboard::Left)
-				{
-					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Left);
-				}
-				if (this->ev.key.code == sf::Keyboard::Right)
-				{
-					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Right);
-				}
-				if (this->ev.key.code == sf::Keyboard::Down)
-				{
-					this->game->MovePlayer(this->game->GetPlayer2(), EPlayerMovementType::Down);
-				}
+				InputHandler::HandleKeyPress(this->ev, this->game, this->window);
 			}
 			break;
 		}
@@ -157,8 +112,8 @@ void GameUI::renderSquare(const ISquare* square)
 
 	sf::Sprite sprite(textureCache[imagePath]);
 
-	// since our pngs are 16/16 we need to scale them 
-	float scaleX = 57.0f / 16.0f; // Grid cell width / Image width 
+	// since our pngs are 16/16 we need to scale them
+	float scaleX = 57.0f / 16.0f; // Grid cell width / Image widt
 	float scaleY = 57.0f / 16.0f; // Grid cell height / Image height
 
 	sprite.setScale(scaleX, scaleY);
@@ -190,6 +145,7 @@ void GameUI::renderSquare(const ISquare* square)
 
 		this->window->draw(playerSprite);
 	}
+
 	IBomb* bomb = square->GetBomb();
 	if (bomb)
 	{
