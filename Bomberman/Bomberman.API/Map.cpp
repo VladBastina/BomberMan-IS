@@ -119,11 +119,6 @@ bool Map::IsPassable(int x, int y) const
     return true;
 }
 
-bool Map::HasPowerUp(int x, int y) const
-{
-    return false;
-}
-
 bool Map::HasBombOnSquare(std::pair<int, int> position) const
 {
     return this->board[position.first][position.second]->HasBomb();
@@ -153,18 +148,6 @@ void Map::PlaceBomb(int x, int y)
     IBomb* bomb = new Bomb(std::make_pair(x, y),2,3);
     this->board[x][y]->SetBomb(bomb);
 
-}
-
-void Map::RemoveBomb(int x, int y)
-{
-}
-
-void Map::AddPowerUp(int x, int y, ISquare* powerUp)
-{
-}
-
-void Map::RemovePowerUp(int x, int y)
-{
 }
 
 void Map::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)

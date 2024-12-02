@@ -21,7 +21,6 @@ public:
 	ISquare* GetSquare(int x, int y) const override;
 	bool IsDestructible(int x, int y) const override;
 	bool IsPassable(int x, int y) const override;
-	bool HasPowerUp(int x, int y) const override;
 	bool HasBombOnSquare(std::pair<int, int> position) const override;
 
 	std::vector<std::pair<int, int>> GetExplosionRange(int x, int y, int explosionRadius) const override;
@@ -29,9 +28,6 @@ public:
 
 	void UpdateSquare(int x, int y, ISquare* newSquare) override;
 	void PlaceBomb(int x, int y) override;
-	void RemoveBomb(int x, int y) override;
-	void AddPowerUp(int x, int y, ISquare* powerUp) override;
-	void RemovePowerUp(int x, int y) override;
 
 	void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) override;
 

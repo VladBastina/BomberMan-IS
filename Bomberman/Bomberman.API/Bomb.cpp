@@ -24,16 +24,6 @@ std::string Bomb::GetImagePath() const
 	return imagePath;
 }
 
-void Bomb::SetPosition(std::pair<int, int> position)
-{
-	this->position = position;
-}
-
-void Bomb::SetRange(int range)
-{
-	this->range = range;
-}
-
 void Bomb::SetImagePath(const std::string& path)
 {
 	imagePath = path;
@@ -49,8 +39,3 @@ void Bomb::UpdateTimer(float elapsedTime)
 	timer -= elapsedTime;
 
 }
-
-//void Bomb::Explode()
-//{
-//	exploded=tr
-//}

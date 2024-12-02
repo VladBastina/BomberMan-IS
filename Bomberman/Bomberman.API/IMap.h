@@ -20,7 +20,6 @@ public:
     virtual ISquare* GetSquare(int x, int y) const = 0;
     virtual bool IsDestructible(int x, int y) const = 0;
     virtual bool IsPassable(int x, int y) const = 0;
-    virtual bool HasPowerUp(int x, int y) const = 0;
     virtual bool HasBombOnSquare(std::pair<int, int> position) const = 0;
 
     // Utility Functions
@@ -30,9 +29,7 @@ public:
     // Map Updates
     virtual void UpdateSquare(int x, int y, ISquare* newSquare) = 0;
     virtual void PlaceBomb(int x, int y) = 0;
-    virtual void RemoveBomb(int x, int y) = 0;
-    virtual void AddPowerUp(int x, int y, ISquare* powerUp) = 0;
-    virtual void RemovePowerUp(int x, int y) = 0;
+
 
     virtual void MovePlayer(IPlayer* player, EPlayerMovementType movementDir) = 0;
 

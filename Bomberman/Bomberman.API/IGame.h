@@ -18,7 +18,6 @@ public:
 	virtual void PlaceBomb(IPlayer* player) = 0;
 	virtual void HandleExplosion(float elapsedTime) = 0;
 	virtual void HandleActiveFire(const float& elapsedTime) = 0;
-	//virtual void ManageFire(float elapsedTime) = 0;
 	virtual bool addGameListener(IGameListener* listener) = 0;
 	virtual bool removeGameListener(IGameListener* listener) = 0;
 	virtual void notifyAllListeners() = 0;

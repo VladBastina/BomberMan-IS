@@ -34,11 +34,6 @@ ESquareType Square::GetSquareType() const
     return squareType;
 }
 
-bool Square::HasPowerUp() const
-{
-    return false;
-}
-
 IPlayer* Square::GetPlayer() const
 {
     return player;
@@ -91,29 +86,6 @@ void Square::RemovePlayer()
     player = nullptr;
 }
 
-bool Square::BreakWall()
-{
-    if (squareType == ESquareType::Wall)
-    {
-        squareType = ESquareType::Grass;
-        DropPowerUp();
-        return true;
-    }
-    else if (squareType == ESquareType::UnbreakableWall)
-    {
-        return false;
-    }
-    else
-    {
-        return true;
-    }
-}
-
-void Square::DropPowerUp()
-{
-
-}
-
 void Square::ClearBomb()
 {
     if (bomb)
@@ -131,7 +103,6 @@ void Square::ClearFire()
         fire = nullptr;
     }
 }
-
 
 
 bool Square::HasWall() const
