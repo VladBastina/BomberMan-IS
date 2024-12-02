@@ -13,11 +13,11 @@ private:
 	IGame* game;
 	std::map<std::string, sf::Texture> textureCache;
 	
-
-	sf::Texture gameOverTexture; // Texture for the "Game Over" screen
-	sf::Sprite gameOverSprite;   // Sprite for the "Game Over" screen
+	sf::Texture gameOverTexture;
+	sf::Sprite gameOverSprite;
 	sf::Text timer;
 	sf::Font font;
+
 	void initVariables();
 	void initWindow();
 	void initTimer();
@@ -32,9 +32,6 @@ public:
 	void Update(float elapsedTime);
 	void pollEvents();
 	void render();
-
 	const bool running() const;
-
-	// Inherited via IGameListener
 	void OnKeyPressed() override;
 };

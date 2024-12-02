@@ -1,8 +1,6 @@
 #include "Game.h"
 
 
-
-// Constructor
 Game::Game(EMapInitialization mapInitialization) : gameIsOver(false),gameTimer(100.0f)
 {
     this->player1 = new Player(EPlayerType::One, 1, 1);
@@ -79,18 +77,6 @@ void Game::SetGameOver()
 {
     this->gameIsOver = true;
     notifyAllListeners();
-}
-
-void Game::MovePlayer(EPlayerType playerType, EPlayerMovementType movementDir)
-{
-    if (playerType == EPlayerType::One)
-    {
-        map->MovePlayer(player1, movementDir);
-    }
-    else
-    {
-        map->MovePlayer(player2, movementDir);
-    }
 }
 
 void Game::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)

@@ -11,17 +11,8 @@ Player::Player(EPlayerType playerType, int startX, int startY)
     moveDelay = 0.4f;
 }
 
-// Getters
-EPlayerType Player::GetType() const {
-    return type;
-}
-
 std::pair<int, int> Player::GetPosition() const {
     return position;
-}
-
-bool Player::IsAlive() const {
-    return alive;
 }
 
 bool Player::HasPlacedBomb() const {
@@ -32,23 +23,8 @@ std::string Player::GetImagePath() const {
     return imagePath;
 }
 
-bool Player::HasActivePowerup() const {
-    return activePowerup;
-}
-
-std::chrono::steady_clock::time_point Player::GetLastMoveTime() const
-{
-    return lastMoveTime;
-}
-
-// Setters
 void Player::SetPosition(int x, int y) {
     position = std::make_pair(x, y);
-    //notifyPlayerMoved(); // Notify listeners of movement
-}
-
-void Player::SetAlive(bool isAlive) {
-    alive = isAlive;
 }
 
 void Player::StatePlaceBomb() {
@@ -57,10 +33,6 @@ void Player::StatePlaceBomb() {
 
 void Player::SetImagePath(const std::string& path) {
     imagePath = path;
-}
-
-void Player::SetActivePowerup(bool active) {
-    activePowerup = active;
 }
 
 void Player::SetLastMoveTime(const std::chrono::steady_clock::time_point& newTime)

@@ -101,45 +101,9 @@ ISquare* Map::GetSquare(int x, int y) const
     return board[x][y];
 }
 
-bool Map::IsDestructible(int x, int y) const
-{
-    if (board[x][y]->GetSquareType() == ESquareType::UnbreakableWall)
-    {
-        return false;
-    }
-    return true;
-}
-
-bool Map::IsPassable(int x, int y) const
-{
-    if (board[x][y]->GetSquareType() == ESquareType::Wall || board[x][y]->GetSquareType() == ESquareType::UnbreakableWall)
-    {
-        return false;
-    }
-    return true;
-}
-
 bool Map::HasBombOnSquare(std::pair<int, int> position) const
 {
     return this->board[position.first][position.second]->HasBomb();
-}
-
-std::vector<std::pair<int, int>> Map::GetExplosionRange(int x, int y, int explosionRadius) const
-{
-    return std::vector<std::pair<int, int>>();
-}
-
-bool Map::IsValidPosition(int x, int y) const
-{
-    if (x < board.size() && y < board[0].size())
-    {
-        return true;
-    }
-    return false;
-}
-
-void Map::UpdateSquare(int x, int y, ISquare* newSquare)
-{
 }
 
 void Map::PlaceBomb(int x, int y)
@@ -148,78 +112,6 @@ void Map::PlaceBomb(int x, int y)
     IBomb* bomb = new Bomb(std::make_pair(x, y),2,3);
     this->board[x][y]->SetBomb(bomb);
 
-}
-
-void Map::MovePlayer(IPlayer* player, EPlayerMovementType movementDir)
-{
-    //std::pair<int, int> playerPosition = player->GetPosition();
-    //switch (movementDir)
-    //{
-    //case EPlayerMovementType::Up:
-    //{
-    //   /* if (playerPosition.first == 1)
-    //        break;
-    //    else
-    //    {*/
-    //        ISquare* square = GetSquare(playerPosition.first - 1, playerPosition.second);
-    //        if (square->HasWall() && !square->HasPlayer())
-    //        {
-    //            square->SetPlayer(player);
-    //            ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
-    //            currentSquare->RemovePlayer();
-    //        }
-    //    //}
-    //    break;
-    //}
-    //case EPlayerMovementType::Down:
-    //{
-    //    /*if (playerPosition.first == 12)
-    //        break;
-    //    else
-    //    {*/
-    //        ISquare* square = GetSquare(playerPosition.first + 1, playerPosition.second);
-    //        if (square->HasWall() && !square->HasPlayer())
-    //        {
-    //            square->SetPlayer(player);
-    //            ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
-    //            currentSquare->RemovePlayer();
-    //        }
-    //    //}
-    //    break;
-    //}
-    //case EPlayerMovementType::Left:
-    //{
-    //    /*if (playerPosition.second == 1)
-    //        break;
-    //    else
-    //    {*/
-    //        ISquare* square = GetSquare(playerPosition.first, playerPosition.second - 1);
-    //        if (square->HasWall() && !square->HasPlayer())
-    //        {
-    //            square->SetPlayer(player);
-    //            ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
-    //            currentSquare->RemovePlayer();
-    //        }
-    //    //}
-    //    break;
-    //}
-    //case EPlayerMovementType::Right:
-    //{
-    //    /*if (playerPosition.second == 12)
-    //        break;
-    //    else
-    //    {*/
-    //        ISquare* square = GetSquare(playerPosition.first, playerPosition.second + 1);
-    //        if (square->HasWall() && !square->HasPlayer())
-    //        {
-    //            square->SetPlayer(player);
-    //            ISquare* currentSquare = GetSquare(playerPosition.first, playerPosition.second);
-    //            currentSquare->RemovePlayer();
-    //        }
-    //    //}
-    //    break;
-    //}
-    //}
 }
 
 void Map::LoadFromFile(std::string filePath, IPlayer* player1, IPlayer* player2)
